@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lauras Marvel Marathon</title>
+    <!-- Google Font: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #021428;
+            --card-bg: #051d38;
+            --card-bg-hover: #0a274a;
+            --accent-color: #E36D9A;
+            --text-main: #F0EBDA;
+            --text-muted: #b0a998;
+            --star-color: #F0EBDA;
+            --border-radius: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.5;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0 20px;
+            border-bottom: 1px solid rgba(240, 235, 218, 0.15);
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.05em;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        .stats-badge {
+            display: inline-block;
+            background-color: var(--card-bg);
+            color: var(--text-main);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid rgba(240, 235, 218, 0.1);
+        }
+
+        .stats-badge span {
+            color: var(--accent-color);
+            font-weight: 700;
+        }
+
+        section {
+            margin-bottom: 50px;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Layout for Highlight sektionen (Senest set + Yndlingsfilm side om side) */
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        /* Filter Knapper */
+        .filter-container {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        .filter-btn {
+            background-color: var(--card-bg);
+            color: var(--text-muted);
+            border: 1px solid rgba(240, 235, 218, 0.15);
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--accent-color);
+            color: #ffffff;
+            border-color: var(--accent-color);
+        }
+
+        /* Grid Layout for Film Cards */
+        .movie-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        /* Film Kort */
+        .movie-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(240, 235, 218, 0.1);
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+
+        .movie-card:hover {
+            transform: translateY(-4px);
+            background-color: var(--card-bg-hover);
+        }
+
+        /* Plakat beholder med fast højde og beskæring */
+        .poster-placeholder {
+            width: 100%;
+            height: 380px;
+            background-color: var(--bg-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-bottom: 1px solid rgba(240, 235, 218, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Sikrer at billedet ikke klemmes sammen, men beskæres flot */
+        .poster-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+        }
+
+        .movie-info {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .movie-details {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 12px;
+        }
+
+        /* Fast højde på titlen så 1-, 2- og 3-linjers titler optager præcis samme plads */
+        .movie-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+            height: 2.6em;
+            line-height: 1.3em;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .movie-meta {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .rating-stars {
+            color: var(--star-color);
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+        }
+
+        /* Kommentar med fast afstand over sig */
+        .movie-comment {
+            font-size: 0.85rem;
+            color: var(--text-main);
+            font-style: italic;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 8px;
+            border-radius: 6px;
+        }
+
+        .comment-text {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .comment-text.expanded {
+            display: block;
+            -webkit-line-clamp: unset;
+            overflow: visible;
+        }
+
+        /* Opdateret knap: Lys og Bold */
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: var(--accent-color);
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            padding: 4px 0 0 0;
+            display: block;
+            margin-top: 4px;
+            text-decoration: underline;
+        }
+
+        .toggle-btn:hover {
+            color: var(--text-main);
+        }
+
+        /* Highlight Cards (Seneste + Yndling) */
+        .recent-card {
+            display: flex;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            border: 2px solid var(--accent-color);
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .recent-card .poster-placeholder {
+            width: 160px;
+            height: 240px;
+            flex-shrink: 0;
+            border-bottom: none;
+            border-right: 1px solid rgba(240, 235, 218, 0.1);
+        }
+
+        .recent-card .movie-info {
+            padding: 18px;
+        }
+
+        .recent-card .movie-title {
+            height: auto;
+            -webkit-line-clamp: unset;
+        }
+
+        @media (max-width: 650px) {
+            .recent-card {
+                flex-direction: column;
+            }
+            .recent-card .poster-placeholder {
+                width: 100%;
+                height: 380px;
+                border-right: none;
+                border-bottom: 1px solid rgba(240, 235, 218, 0.1);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOP HEADER -->
+    <header>
+        <h1>Lauras Marvel Marathon</h1>
+        <div class="stats-badge">
+            Samlet tid set: <span id="total-time">0 t 0 min</span>
+        </div>
+    </header>
+
+    <main>
+        <!-- HIGHLIGHTS: SENEST SET OG YNDLINGSFILM -->
+        <section class="highlights-grid">
+            <div>
+                <h2>🍿 Senest Set Film</h2>
+                <div id="recent-movie-container">
+                    <!-- Indsættes dynamisk via JavaScript -->
+                </div>
+            </div>
+
+            <div>
+                <h2>💖 Yndlings Marvel Film</h2>
+                <div id="favorite-movie-container">
+                    <!-- Indsættes dynamisk via JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- BIBLIOTEK OVER SETE FILM -->
+        <section>
+            <h2>🎬 Sete Film</h2>
+            
+            <!-- Filtreringsknapper (Kun hele stjerner) -->
+            <div class="filter-container">
+                <button class="filter-btn active" onclick="filterMovies('all', event)">Alle</button>
+                <button class="filter-btn" onclick="filterMovies(5, event)">5 ★</button>
+                <button class="filter-btn" onclick="filterMovies(4, event)">4 ★</button>
+                <button class="filter-btn" onclick="filterMovies(3, event)">3 ★</button>
+                <button class="filter-btn" onclick="filterMovies(2, event)">2 ★</button>
+                <button class="filter-btn" onclick="filterMovies(1, event)">1 ★</button>
+            </div>
+
+            <div class="movie-grid" id="watched-grid">
+                <!-- Sete film genereres via JS -->
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // DATAGRUNDLAG FOR FILM
+        const watchedMovies = [
+            { title: "Captain America: The First Avenger", year: 2011, duration: 124, rating: 3, comment: "Den var god nok, men synes han var super nederen/ubehagelig at se på, da de havde lavet ham helt lille og spinkel. Meget uncanny. Men meget ligetil film", poster: "plakater/captain_america_1.jpg" },
+            { title: "Captain Marvel", year: 2019, duration: 124, rating: 3, comment: "Goose katten er den sande helt.", poster: "plakater/captain_marvel.jpg" },
+            { title: "Iron Man", year: 2008, duration: 126, rating: 4, comment: "Virkelig god! Meget intrigued og elsker tony stark som karakter", poster: "plakater/ironman_1.jpg" },
+            { title: "Iron Man 2", year: 2010, duration: 124, rating: 3, comment: "Også virkelig god! Men Pepper var totalt ragebait", poster: "plakater/ironman_2.jpg" },
+            { title: "Marvel's The Avengers", year: 2012, duration: 143, rating: 1, comment: "Virkelig virkelig boring. Fell asleep og magtede nærmest ikke se resten", poster: "plakater/marvel_the_avengers.jpg" },
+            { title: "Iron Man 3", year: 2013, duration: 130, rating: 4, comment: "Rigtig god! Tror det er min yndlings Iron man film", poster: "plakater/ironman_3.jpg" },
+            { title: "Thor: The Dark World", year: 2013, duration: 112, rating: 4, comment: "Det var ikke en jeg var mega begejstret for at skulle se, men den var ret god! Jeg var bare lidt forvirret til tider - nok fordi jeg ikke har set Thor 1. Men wow, the betrayal af Loki, hvor han skærer Thors hånd af, just for it to be a prank var crazy🤚🏻", poster: "plakater/thor_2.jpg" },
+            { title: "Guardians of the Galaxy", year: 2014, duration: 121, rating: 4, comment: "Elsker musikken og karaktererne, undtagen Drax. Drax kan sutte den. Very good!", poster: "plakater/gotg_1.jpg" },
+            { title: "Thor: Ragnarok", year: 2017, duration: 130, rating: 2, comment: "Kan ikke rigtig huske den, og har altså lige set den.. Så meget intetsigende. Dog vil jeg også indrømme, at jeg så den før nogen anden Thor film - så har nok også misset meget lore", poster: "plakater/thor_3.jpg" },
+            { title: "Spider-Man: No Way Home", year: 2021, duration: 148, rating: 4, comment: "Den var virkelig god, men også helt vildt ragebait! Fordi hvad mener du, at Peter Parker vil lade alle de skurke blive her for at “fix them”??!! Altså synes jo den sluttede godt, og at det alligevel gav mening at fikse dem. Men omg jeg var sur. Jeg græd også rigtig meget da Aunt May døde.", poster: "plakater/spiderman_3.png" },
+            { title: "Spider-Man: Brand New Day", year: 2026, duration: 135, rating: 5, comment: "Oh.. my god. Den var amazing. Græd 4 gange🫩 Virkelig virkelig god!!", poster: "plakater/spiderman_4.jpg" },
+            { title: "Captain America: The Winter Soldier", year: 2014, duration: 136, rating: 1, comment: "Skal lige se resten, men har ingenting fattet indtil videre.. Super kedelig også.", poster: "plakater/captain_america_2.jpg" }
+        ];
+
+        // Funktion til kun at vise hele stjerner (f.eks. 4 -> ★★★★☆)
+        function getStarRatingHTML(rating) {
+            let stars = '';
+            for (let i = 1; i <= 5; i++) {
+                if (i <= rating) {
+                    stars += '★';
+                } else {
+                    stars += '☆';
+                }
+            }
+            return stars;
+        }
+
+        // Hjælpefunktion til at generere HTML til fremhævede kort
+        function createHighlightCardHTML(movie) {
+            return `
+                <div class="recent-card">
+                    <div class="poster-placeholder">
+                        ${movie.poster ? `<img src="${movie.poster}" alt="${movie.title}">` : '[ Filmplakat ]'}
+                    </div>
+                    <div class="movie-info">
+                        <div class="movie-details">
+                            <div class="movie-title">${movie.title}</div>
+                            <div class="movie-meta">${movie.year} • ${movie.duration} min</div>
+                            <div class="rating-stars">${getStarRatingHTML(movie.rating)} (${movie.rating}/5)</div>
+                        </div>
+                        <div class="movie-comment">
+                            <div class="comment-text">"${movie.comment}"</div>
+                            <button class="toggle-btn" style="display:none;" onclick="toggleComment(this)">Læs mere</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Beregn og vis samlet tid for sete film
+        function renderTotalTime() {
+            const totalMinutes = watchedMovies.reduce((acc, movie) => acc + movie.duration, 0);
+            const hours = Math.floor(totalMinutes / 60);
+            const minutes = totalMinutes % 60;
+            document.getElementById('total-time').innerText = `${hours} t ${minutes} min`;
+        }
+
+        // Vis den senest sete film
+        function renderRecentMovie() {
+            const container = document.getElementById('recent-movie-container');
+            const recent = watchedMovies[watchedMovies.length - 1];
+            container.innerHTML = createHighlightCardHTML(recent);
+        }
+
+        // Vis yndlingsfilm (filmen med den højeste vurdering)
+        function renderFavoriteMovie() {
+            const container = document.getElementById('favorite-movie-container');
+            // Finder filmen med højest rating (hvis flere har 5 stjerner, tages den første af dem)
+            const favorite = [...watchedMovies].reduce((max, movie) => movie.rating > max.rating ? movie : max, watchedMovies[0]);
+            container.innerHTML = createHighlightCardHTML(favorite);
+        }
+
+        // Vis alle sete film i grid (sorteret efter årstal: nyeste først)
+        function renderWatchedMovies(filterRating = 'all') {
+            const grid = document.getElementById('watched-grid');
+            grid.innerHTML = '';
+
+            // Sorterer filmene så de nyeste udgivelsesår vises først
+            const sortedMovies = [...watchedMovies].sort((a, b) => b.year - a.year);
+
+            const filtered = filterRating === 'all' 
+                ? sortedMovies 
+                : sortedMovies.filter(m => m.rating === Number(filterRating));
+
+            if(filtered.length === 0) {
+                grid.innerHTML = '<p style="color: var(--text-muted);">Ingen film fundet med denne rangering.</p>';
+                return;
+            }
+
+            filtered.forEach(movie => {
+                const card = document.createElement('div');
+                card.className = 'movie-card';
+                card.innerHTML = `
+                    <div class="poster-placeholder">
+                        ${movie.poster ? `<img src="${movie.poster}" alt="${movie.title}">` : '[ Filmplakat ]'}
+                    </div>
+                    <div class="movie-info">
+                        <div class="movie-details">
+                            <div class="movie-title">${movie.title}</div>
+                            <div class="movie-meta">${movie.year} • ${movie.duration} min</div>
+                            <div class="rating-stars">${getStarRatingHTML(movie.rating)}</div>
+                        </div>
+                        <div class="movie-comment">
+                            <div class="comment-text">"${movie.comment}"</div>
+                            <button class="toggle-btn" style="display:none;" onclick="toggleComment(this)">Læs mere</button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            checkCommentOverflow();
+        }
+
+        // Tjek om kommentarfylde overstiger 3 linjer
+        function checkCommentOverflow() {
+            const commentTexts = document.querySelectorAll('.comment-text');
+            commentTexts.forEach(textEl => {
+                const btn = textEl.nextElementSibling;
+                if (textEl.scrollHeight > textEl.clientHeight) {
+                    btn.style.display = 'inline-block';
+                } else {
+                    btn.style.display = 'none';
+                }
+            });
+        }
+
+        // Fold ud / skjul kommentaren
+        function toggleComment(btn) {
+            const textEl = btn.previousElementSibling;
+            textEl.classList.toggle('expanded');
+            if (textEl.classList.contains('expanded')) {
+                btn.innerText = 'Vis mindre';
+            } else {
+                btn.innerText = 'Læs mere';
+            }
+        }
+
+        // Filtrering af film
+        function filterMovies(rating, event) {
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            if(event && event.target) {
+                event.target.classList.add('active');
+            }
+
+            renderWatchedMovies(rating);
+        }
+
+        // Kør ved indlæsning
+        renderTotalTime();
+        renderRecentMovie();
+        renderFavoriteMovie();
+        renderWatchedMovies();
+    </script>
+</body>
+</html>
