@@ -347,7 +347,12 @@
             { title: "Guardians of the Galaxy Vol. 2", year: 2017, duration: 137, rating: 5, comment: "Den var virkelig god! Jeg var intrigued hele vejen igennem og den var nem at forstå. Musikken og karaktererne var som altid great. Groot er seriøst det kæreste i hele verden!!! Kunne også virkelig godt lide Mantis! So cute. OG! MM wicked witch havde lige en appearance til sidst!! Den var dog lidt childish til tider, men jeg synes det er okay.", poster: "plakater/gotg_2.jpeg" },
             { title: "Ant-Man", year: 2015, duration: 117, rating: 4, comment: "Virkelig god film og nem at forstå. Paxton pissed me tf off tho, men blev heldigvis okay likable til sidst - så det er okay", poster: "plakater/antman_1.jpg" },
             { title: "Captain America: Civil War", year: 2016, duration: 148, rating: 5, comment: "Virkelig god! Jeg kunne godt lide hvor mange forskellige karakterer der var med og at de kæmpede mod internt, fremfor nogle random skurke/robotter/aliens you name it. Der var også helt vildt mange plottwist eller overraskelser, which I love", poster: "plakater/captain_america_3.jpg" },
-            { title: "Black Widow", year: 2021, duration: 133, rating: 5, comment: "Den var virkelig sørgelig faktisk.. men helt vildt god! Søskende kærlighed always gets me.. wow🫩", poster: "plakater/black_widow.jpg" }
+            { title: "Black Widow", year: 2021, duration: 133, rating: 5, comment: "Den var virkelig sørgelig faktisk.. men helt vildt god! Søskende kærlighed always gets me.. wow🫩", poster: "plakater/black_widow.jpg" },
+            { title: "Doctor Strange", year: 2016, duration: 115, rating: 2, comment: "Jeg synes den var ret intetsigende og jeg var ikke særlig vild med Doctor Strange som person/karakter. Kunne mest lide, at Rachel McAdams, Mads Mikkelsen og ham fra Love Actually var med i den tbh..", poster: "plakater/doctor_strange_1.jpg" },
+            { title: "Spider-Man: Homecoming", year: 2017, duration: 133, rating: 3, comment: "Den var ret god men også virkelig frustrerende og ragebait. Jeg så den også over 4-5 omgange, så den havde måske scoret højere, hvis jeg havde set den i én køre..?", poster: "plakater/spiderman_1.jpg" },
+            { title: "Black Panther", year: 2018, duration: 135, rating: 5, comment: "Den var vanvittig! Virkelig god wow!! Jeg ELSKER hvor mange seje kvinder der var med and the plot was just sooo good!!", poster: "plakater/black_panther.jpeg", isFavorite: true },
+            { title: "Ant-Man and the Wasp", year: 2018, duration: 118, rating: 4, comment: "Den var ret sød, men også lidt ragebait til tider. Slutningen i rulleteksterne had me shocked tho?? What a cliffhanger", poster: "plakater/antman_2.jpeg" },
+            { title: "Avengers: Infinity War", year: 2018, duration: 149, rating: 5, comment: "Den var crazy og jeg føler jeg fløj igennem filmen, taget i betragtning at den tog 2,5 timer. Var shocked SÅ mange gange it’s insane", poster: "plakater/infinity_war.jpg" }
         ];
 
         // Funktion til kun at vise hele stjerner (f.eks. 4 -> ★★★★☆)
@@ -400,11 +405,11 @@
             container.innerHTML = createHighlightCardHTML(recent);
         }
 
-        // Vis yndlingsfilm (filmen med den højeste vurdering)
+        // Vis yndlingsfilm (prioriterer eksplicit isFavorite markering, ellers højeste rating)
         function renderFavoriteMovie() {
             const container = document.getElementById('favorite-movie-container');
-            // Finder filmen med højest rating (hvis flere har 5 stjerner, tages den første af dem)
-            const favorite = [...watchedMovies].reduce((max, movie) => movie.rating > max.rating ? movie : max, watchedMovies[0]);
+            const favorite = watchedMovies.find(m => m.isFavorite) || 
+                             [...watchedMovies].reduce((max, movie) => movie.rating > max.rating ? movie : max, watchedMovies[0]);
             container.innerHTML = createHighlightCardHTML(favorite);
         }
 
