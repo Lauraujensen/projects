@@ -139,22 +139,16 @@
         }
 
         /* Plakat beholder med fast højde og beskæring */
-        .poster-placeholder {
+        .poster-container {
             width: 100%;
             height: 380px;
             background-color: var(--bg-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-            font-size: 0.85rem;
             border-bottom: 1px solid rgba(240, 235, 218, 0.1);
             position: relative;
             overflow: hidden;
         }
 
-        /* Sikrer at billedet ikke klemmes sammen, men beskæres flot */
-        .poster-placeholder img {
+        .poster-container img {
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -175,7 +169,6 @@
             margin-bottom: 12px;
         }
 
-        /* Fast højde på titlen så 1-, 2- og 3-linjers titler optager præcis samme plads */
         .movie-title {
             font-size: 1.1rem;
             font-weight: 600;
@@ -200,7 +193,6 @@
             letter-spacing: 2px;
         }
 
-        /* Kommentar med fast afstand over sig */
         .movie-comment {
             font-size: 0.85rem;
             color: var(--text-main);
@@ -223,7 +215,6 @@
             overflow: visible;
         }
 
-        /* Opdateret knap: Lys og Bold */
         .toggle-btn {
             background: none;
             border: none;
@@ -251,7 +242,7 @@
             width: 100%;
         }
 
-        .recent-card .poster-placeholder {
+        .recent-card .poster-container {
             width: 160px;
             height: 240px;
             flex-shrink: 0;
@@ -272,7 +263,7 @@
             .recent-card {
                 flex-direction: column;
             }
-            .recent-card .poster-placeholder {
+            .recent-card .poster-container {
                 width: 100%;
                 height: 380px;
                 border-right: none;
@@ -330,32 +321,32 @@
     </main>
 
     <script>
-        // DATAGRUNDLAG FOR FILM
+        // DATAGRUNDLAG FOR FILM (Præcise relative stier)
         const watchedMovies = [
-            { title: "Captain America: The First Avenger", year: 2011, duration: 124, rating: 3, comment: "Den var god nok, men synes han var super nederen/ubehagelig at se på, da de havde lavet ham helt lille og spinkel. Meget uncanny. Men meget ligetil film", poster: "plakater/captain_america_1.jpg" },
-            { title: "Captain Marvel", year: 2019, duration: 124, rating: 3, comment: "eg synes egentlig den var meget god. Jeg så godt nok først anden halvdel af filmen flere uger efter, så var lidt forvirret, da jeg havde glemt lidt. Jeg kunne godt lide hvor meget Fury var med i den her. Dog synes jeg lige pludselig, at hun blev ret OP?? Uden nogen sådan rigtig forklaring. Det var lidt weird.", poster: "plakater/captain_marvel.jpg" },
-            { title: "Iron Man", year: 2008, duration: 126, rating: 4, comment: "Virkelig god! Meget intrigued og elsker tony stark som karakter", poster: "plakater/ironman_1.jpg" },
-            { title: "Iron Man 2", year: 2010, duration: 124, rating: 3, comment: "Også virkelig god! Men Pepper var totalt ragebait", poster: "plakater/ironman_2.jpg" },
-            { title: "Marvel's The Avengers", year: 2012, duration: 143, rating: 1, comment: "Virkelig virkelig boring. Fell asleep og magtede nærmest ikke se resten", poster: "plakater/marvel_the_avengers.jpg" },
-            { title: "Iron Man 3", year: 2013, duration: 130, rating: 4, comment: "Rigtig god! Tror det er min yndlings Iron man film", poster: "plakater/ironman_3.jpg" },
-            { title: "Thor: The Dark World", year: 2013, duration: 112, rating: 4, comment: "Det var ikke en jeg var mega begejstret for at skulle se, men den var ret god! Jeg var bare lidt forvirret til tider - nok fordi jeg ikke har set Thor 1. Men wow, the betrayal af Loki, hvor han skærer Thors hånd af, just for it to be a prank var crazy🤚🏻", poster: "plakater/thor_2.jpg" },
-            { title: "Guardians of the Galaxy", year: 2014, duration: 122, rating: 4, comment: "Elsker musikken og karaktererne, undtagen Drax. Drax kan sutte den. Very good!", poster: "plakater/gotg_1.jpg" },
-            { title: "Thor: Ragnarok", year: 2017, duration: 130, rating: 2, comment: "Kan ikke rigtig huske den, og har altså lige set den.. Så meget intetsigende. Dog vil jeg også indrømme, at jeg så den før nogen anden Thor film - så har nok også misset meget lore", poster: "plakater/thor_3.jpg" },
-            { title: "Spider-Man: No Way Home", year: 2021, duration: 148, rating: 4, comment: "Den var virkelig god, men også helt vildt ragebait! Fordi hvad mener du, at Peter Parker vil lade alle de skurke blive her for at “fix them”??!! Altså synes jo den sluttede godt, og at det alligevel gav mening at fikse dem. Men omg jeg var sur. Jeg græd også rigtig meget da Aunt May døde.", poster: "plakater/spiderman_3.jpg" },
-            { title: "Spider-Man: Brand New Day", year: 2026, duration: 140, rating: 5, comment: "Oh.. my god. Den var amazing. Græd 4 gange🫩 Virkelig virkelig god!!", poster: "plakater/spiderman_4.jpg" },
-            { title: "Captain America: The Winter Soldier", year: 2014, duration: 136, rating: 1, comment: "SO SO BORING wow. Fattede ikke en meter af filmen, selv efter at have fået den forklaret. Mega kedelige personer der var med også. Tror bare Captain America keder mig. Jeg forstod heller ikke hvordan Sam Wilson lige pludselig blev til Falcon?? Virkelig nederen film", poster: "plakater/captain_america_2.jpg" },
-            { title: "Guardians of the Galaxy Vol. 2", year: 2017, duration: 137, rating: 5, comment: "Den var virkelig god! Jeg var intrigued hele vejen igennem og den var nem at forstå. Musikken og karaktererne var som altid great. Groot er seriøst det kæreste i hele verden!!! Kunne også virkelig godt lide Mantis! So cute. OG! MM wicked witch havde lige en appearance til sidst!! Den var dog lidt childish til tider, men jeg synes det er okay.", poster: "plakater/gotg_2.jpeg" },
-            { title: "Ant-Man", year: 2015, duration: 117, rating: 4, comment: "Virkelig god film og nem at forstå. Paxton pissed me tf off tho, men blev heldigvis okay likable til sidst - så det er okay", poster: "plakater/antman_1.jpg" },
-            { title: "Captain America: Civil War", year: 2016, duration: 148, rating: 5, comment: "Virkelig god! Jeg kunne godt lide hvor mange forskellige karakterer der var med og at de kæmpede mod internt, fremfor nogle random skurke/robotter/aliens you name it. Der var også helt vildt mange plottwist eller overraskelser, which I love", poster: "plakater/captain_america_3.jpg" },
-            { title: "Black Widow", year: 2021, duration: 133, rating: 5, comment: "Den var virkelig sørgelig faktisk.. men helt vildt god! Søskende kærlighed always gets me.. wow🫩", poster: "plakater/black_widow.jpg" },
-            { title: "Doctor Strange", year: 2016, duration: 115, rating: 2, comment: "Jeg synes den var ret intetsigende og jeg var ikke særlig vild med Doctor Strange som person/karakter. Kunne mest lide, at Rachel McAdams, Mads Mikkelsen og ham fra Love Actually var med i den tbh..", poster: "plakater/doctor_strange_1.jpg" },
-            { title: "Spider-Man: Homecoming", year: 2017, duration: 133, rating: 3, comment: "Den var ret god men også virkelig frustrerende og ragebait. Jeg så den også over 4-5 omgange, så den havde måske scoret højere, hvis jeg havde set den i én køre..?", poster: "plakater/spiderman_1.jpg" },
-            { title: "Black Panther", year: 2018, duration: 135, rating: 5, comment: "Den var vanvittig! Virkelig god wow!! Jeg ELSKER hvor mange seje kvinder der var med and the plot was just sooo good!!", poster: "plakater/black_panther.jpeg", isFavorite: true },
-            { title: "Ant-Man and the Wasp", year: 2018, duration: 118, rating: 4, comment: "Den var ret sød, men også lidt ragebait til tider. Slutningen i rulleteksterne had me shocked tho?? What a cliffhanger", poster: "plakater/antman_2.jpeg" },
-            { title: "Avengers: Infinity War", year: 2018, duration: 149, rating: 5, comment: "Den var crazy og jeg føler jeg fløj igennem filmen, taget i betragtning at den tog 2,5 timer. Var shocked SÅ mange gange it’s insane", poster: "plakater/infinity_war.jpg" }
+            { title: "Captain America: The First Avenger", year: 2011, duration: 124, rating: 3, comment: "Den var god nok, men synes han var super nederen/ubehagelig at se på, da de havde lavet ham helt lille og spinkel. Meget uncanny. Men meget ligetil film", poster: "./plakater/captain_america_1.jpg" },
+            { title: "Captain Marvel", year: 2019, duration: 124, rating: 3, comment: "eg synes egentlig den var meget god. Jeg så godt nok først anden halvdel af filmen flere uger efter, så var lidt forvirret, da jeg havde glemt lidt. Jeg kunne godt lide hvor meget Fury var med i den her. Dog synes jeg lige pludselig, at hun blev ret OP?? Uden nogen sådan rigtig forklaring. Det var lidt weird.", poster: "./plakater/captain_marvel.jpg" },
+            { title: "Iron Man", year: 2008, duration: 126, rating: 4, comment: "Virkelig god! Meget intrigued og elsker tony stark som karakter", poster: "./plakater/ironman_1.jpg" },
+            { title: "Iron Man 2", year: 2010, duration: 124, rating: 3, comment: "Også virkelig god! Men Pepper var totalt ragebait", poster: "./plakater/ironman_2.jpg" },
+            { title: "Marvel's The Avengers", year: 2012, duration: 143, rating: 1, comment: "Virkelig virkelig boring. Fell asleep og magtede nærmest ikke se resten", poster: "./plakater/marvel_the_avengers.jpg" },
+            { title: "Iron Man 3", year: 2013, duration: 130, rating: 4, comment: "Rigtig god! Tror det er min yndlings Iron man film", poster: "./plakater/ironman_3.jpg" },
+            { title: "Thor: The Dark World", year: 2013, duration: 112, rating: 4, comment: "Det var ikke en jeg var mega begejstret for at skulle se, men den var ret god! Jeg var bare lidt forvirret til tider - nok fordi jeg ikke har set Thor 1. Men wow, the betrayal af Loki, hvor han skærer Thors hånd af, just for it to be a prank var crazy🤚🏻", poster: "./plakater/thor_2.jpg" },
+            { title: "Guardians of the Galaxy", year: 2014, duration: 122, rating: 4, comment: "Elsker musikken og karaktererne, undtagen Drax. Drax kan sutte den. Very good!", poster: "./plakater/gotg_1.jpg" },
+            { title: "Thor: Ragnarok", year: 2017, duration: 130, rating: 2, comment: "Kan ikke rigtig huske den, og har altså lige set den.. Så meget intetsigende. Dog vil jeg også indrømme, at jeg så den før nogen anden Thor film - så har nok også misset meget lore", poster: "./plakater/thor_3.jpg" },
+            { title: "Spider-Man: No Way Home", year: 2021, duration: 148, rating: 4, comment: "Den var virkelig god, men også helt vildt ragebait! Fordi hvad mener du, at Peter Parker vil lade alle de skurke blive her for at “fix them”??!! Altså synes jo den sluttede godt, og at det alligevel gav mening at fikse dem. Men omg jeg var sur. Jeg græd også rigtig meget da Aunt May døde.", poster: "./plakater/spiderman_3.jpg" },
+            { title: "Spider-Man: Brand New Day", year: 2026, duration: 140, rating: 5, comment: "Oh.. my god. Den var amazing. Græd 4 gange🫩 Virkelig virkelig god!!", poster: "./plakater/spiderman_4.jpg" },
+            { title: "Captain America: The Winter Soldier", year: 2014, duration: 136, rating: 1, comment: "SO SO BORING wow. Fattede ikke en meter af filmen, selv efter at have fået den forklaret. Mega kedelige personer der var med også. Tror bare Captain America keder mig. Jeg forstod heller ikke hvordan Sam Wilson lige pludselig blev til Falcon?? Virkelig nederen film", poster: "./plakater/captain_america_2.jpg" },
+            { title: "Guardians of the Galaxy Vol. 2", year: 2017, duration: 137, rating: 5, comment: "Den var virkelig god! Jeg var intrigued hele vejen igennem og den var nem at forstå. Musikken og karaktererne var som altid great. Groot er seriøst det kæreste i hele verden!!! Kunne også virkelig godt lide Mantis! So cute. OG! MM wicked witch havde lige en appearance til sidst!! Den var dog lidt childish til tider, men jeg synes det er okay.", poster: "./plakater/gotg_2.jpeg" },
+            { title: "Ant-Man", year: 2015, duration: 117, rating: 4, comment: "Virkelig god film og nem at forstå. Paxton pissed me tf off tho, men blev heldigvis okay likable til sidst - så det er okay", poster: "./plakater/antman_1.jpg" },
+            { title: "Captain America: Civil War", year: 2016, duration: 148, rating: 5, comment: "Virkelig god! Jeg kunne godt lide hvor mange forskellige karakterer der var med og at de kæmpede mod internt, fremfor nogle random skurke/robotter/aliens you name it. Der var også helt vildt mange plottwist eller overraskelser, which I love", poster: "./plakater/captain_america_3.jpg" },
+            { title: "Black Widow", year: 2021, duration: 133, rating: 5, comment: "Den var virkelig sørgelig faktisk.. men helt vildt god! Søskende kærlighed always gets me.. wow🫩", poster: "./plakater/black_widow.jpg" },
+            { title: "Doctor Strange", year: 2016, duration: 115, rating: 2, comment: "Jeg synes den var ret intetsigende og jeg var ikke særlig vild med Doctor Strange som person/karakter. Kunne mest lide, at Rachel McAdams, Mads Mikkelsen og ham fra Love Actually var med i den tbh..", poster: "./plakater/doctor_strange_1.jpg" },
+            { title: "Spider-Man: Homecoming", year: 2017, duration: 133, rating: 3, comment: "Den var ret god men også virkelig frustrerende og ragebait. Jeg så den også over 4-5 omgange, så den havde måske scoret højere, hvis jeg havde set den i én køre..?", poster: "./plakater/spiderman_1.jpg" },
+            { title: "Black Panther", year: 2018, duration: 135, rating: 5, comment: "Den var vanvittig! Virkelig god wow!! Jeg ELSKER hvor mange seje kvinder der var med and the plot was just sooo good!!", poster: "./plakater/black_panther.jpeg", isFavorite: true },
+            { title: "Ant-Man and the Wasp", year: 2018, duration: 118, rating: 4, comment: "Den var ret sød, men også lidt ragebait til tider. Slutningen i rulleteksterne had me shocked tho?? What a cliffhanger", poster: "./plakater/antman_2.jpeg" },
+            { title: "Avengers: Infinity War", year: 2018, duration: 149, rating: 5, comment: "Den var crazy og jeg føler jeg fløj igennem filmen, taget i betragtning at den tog 2,5 timer. Var shocked SÅ mange gange it’s insane", poster: "./plakater/infinity_war.jpg" }
         ];
 
-        // Funktion til kun at vise hele stjerner (f.eks. 4 -> ★★★★☆)
+        // Funktion til kun at vise hele stjerner
         function getStarRatingHTML(rating) {
             let stars = '';
             for (let i = 1; i <= 5; i++) {
@@ -368,12 +359,12 @@
             return stars;
         }
 
-        // Hjælpefunktion til at generere HTML til fremhævede kort
+        // Hjælpefunktion til at generere HTML til fremhævede kort (Uden placeholders)
         function createHighlightCardHTML(movie) {
             return `
                 <div class="recent-card">
-                    <div class="poster-placeholder">
-                        ${movie.poster ? `<img src="${movie.poster}" alt="${movie.title}">` : '[ Filmplakat ]'}
+                    <div class="poster-container">
+                        <img src="${movie.poster}" alt="${movie.title}" loading="lazy">
                     </div>
                     <div class="movie-info">
                         <div class="movie-details">
@@ -405,7 +396,7 @@
             container.innerHTML = createHighlightCardHTML(recent);
         }
 
-        // Vis yndlingsfilm (prioriterer eksplicit isFavorite markering, ellers højeste rating)
+        // Vis yndlingsfilm
         function renderFavoriteMovie() {
             const container = document.getElementById('favorite-movie-container');
             const favorite = watchedMovies.find(m => m.isFavorite) || 
@@ -413,12 +404,11 @@
             container.innerHTML = createHighlightCardHTML(favorite);
         }
 
-        // Vis alle sete film i grid (sorteret efter årstal: nyeste først)
+        // Vis alle sete film i grid (Uden placeholders)
         function renderWatchedMovies(filterRating = 'all') {
             const grid = document.getElementById('watched-grid');
             grid.innerHTML = '';
 
-            // Sorterer filmene så de nyeste udgivelsesår vises først
             const sortedMovies = [...watchedMovies].sort((a, b) => b.year - a.year);
 
             const filtered = filterRating === 'all' 
@@ -434,8 +424,8 @@
                 const card = document.createElement('div');
                 card.className = 'movie-card';
                 card.innerHTML = `
-                    <div class="poster-placeholder">
-                        ${movie.poster ? `<img src="${movie.poster}" alt="${movie.title}">` : '[ Filmplakat ]'}
+                    <div class="poster-container">
+                        <img src="${movie.poster}" alt="${movie.title}" loading="lazy">
                     </div>
                     <div class="movie-info">
                         <div class="movie-details">
