@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="da" class="h-full bg-gradient-to-b from-[#FFF0F3] via-[#FAF8F5] to-[#FAF8F5]">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lauras Date Arkiv</title>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'plum-dark': '#340415',
+                        'baby-pink': '#FDE2E4',
+                        'baby-pink-soft': '#FFF0F3',
+                        'butter-yellow': '#FFF3B0',
+                        'butter-yellow-light': '#FFF9E6',
+                        'soft-bg': '#FAF8F5',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #340415;
+        }
+
+        /* Smooth tab transition & subtle shadow effects */
+        .card-hover {
+            transition: all 0.25s ease-in-out;
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px -8px rgba(52, 4, 21, 0.08);
+        }
+
+        .active-filter {
+            box-shadow: 0 2px 8px rgba(52, 4, 21, 0.12);
+        }
+    </style>
+</head>
+<body class="min-h-full flex flex-col text-plum-dark antialiased selection:bg-pink-200">
+
+    <header class="w-full bg-gradient-to-b from-baby-pink via-baby-pink-soft/80 to-transparent pt-14 pb-12 px-4 text-center">
+        <div class="max-w-4xl mx-auto">
+            <span class="inline-block px-3 py-1 mb-3 text-xs font-medium tracking-widest text-plum-dark uppercase bg-white/70 backdrop-blur-sm rounded-full border border-pink-200/50 shadow-sm">
+                Inspiration & Idéer
+            </span>
+            <h1 class="text-4xl sm:text-5xl font-bold tracking-tight text-plum-dark mb-3">
+                Lauras date arkiv 💗
+            </h1>
+            <p class="text-base sm:text-lg text-plum-dark/80 font-light max-w-md mx-auto leading-relaxed">
+                En samling af nogle af mine date-idéer, som jeg kan lave med min husband / veninder.
+            </p>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
+        
+        <!-- Filter Buttons -->
+        <section class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-10">
+            <button 
+                onclick="filterDates('all')" 
+                id="filter-all" 
+                class="filter-btn active-filter px-5 py-2.5 rounded-full text-sm font-medium transition-all border border-plum-dark bg-plum-dark text-white shadow-sm hover:opacity-90">
+                ✨ Alle dates
+            </button>
+            <button 
+                onclick="filterDates('hjemme')" 
+                id="filter-hjemme" 
+                class="filter-btn px-5 py-2.5 rounded-full text-sm font-medium transition-all border border-pink-200 bg-white/90 text-plum-dark hover:bg-baby-pink-soft">
+                🏠 Hjemme-dates
+            </button>
+            <button 
+                onclick="filterDates('ude')" 
+                id="filter-ude" 
+                class="filter-btn px-5 py-2.5 rounded-full text-sm font-medium transition-all border border-pink-200 bg-white/90 text-plum-dark hover:bg-butter-yellow-light">
+                🌿 Ude-dates
+            </button>
+        </section>
+
+        <section id="dates-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            
+            <!-- Date Item 1: Puslespil -->
+            <article class="date-card group bg-white/90 backdrop-blur-sm rounded-2xl overflow-hidden border border-pink-100/80 shadow-sm card-hover flex flex-col" data-category="hjemme">
+                <div class="relative h-48 sm:h-52 bg-slate-100 overflow-hidden">
+                    <img 
+                        src="billeder/puslespil.jpg" 
+                        alt="Puslespil" 
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        onerror="this.src='https://placehold.co/600x400/FDE2E4/340415?text=Billede+på+vej';"
+                    />
+                    <span class="absolute top-3 right-3 px-3 py-1 bg-white/90 backdrop-blur-md text-xs font-semibold text-plum-dark rounded-full border border-pink-100 shadow-sm flex items-center gap-1">
+                        🏠 Hjemme
+                    </span>
+                </div>
+                <div class="p-6 flex flex-col flex-grow">
+                    <h2 class="text-xl font-semibold text-plum-dark mb-2">Puslespil</h2>
+                    <p class="text-plum-dark/75 text-sm leading-relaxed flex-grow">
+                        Vi laver puslespil, mens vi spiser snacks og ser en comfort-serie, som How I met Your Mother, i baggrunden
+                    </p>
+                </div>
+            </article>
+
+            <!-- Date Item 2: Lave perlesmykker -->
+            <article class="date-card group bg-white/90 backdrop-blur-sm rounded-2xl overflow-hidden border border-pink-100/80 shadow-sm card-hover flex flex-col" data-category="hjemme">
+                <div class="relative h-48 sm:h-52 bg-slate-100 overflow-hidden">
+                    <img 
+                        src="billeder/perler.jpg" 
+                        alt="Lave perlesmykker" 
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        onerror="this.src='https://placehold.co/600x400/FFF3B0/340415?text=Billede+på+vej';"
+                    />
+                    <span class="absolute top-3 right-3 px-3 py-1 bg-white/90 backdrop-blur-md text-xs font-semibold text-plum-dark rounded-full border border-yellow-100 shadow-sm flex items-center gap-1">
+                        🏠 Hjemme
+                    </span>
+                </div>
+                <div class="p-6 flex flex-col flex-grow">
+                    <h2 class="text-xl font-semibold text-plum-dark mb-2">Lave perlesmykker</h2>
+                    <p class="text-plum-dark/75 text-sm leading-relaxed flex-grow">
+                        Vi laver perlesmykker og lytter til god musik, mens vi spiser snacks / drikker noget sjovt
+                    </p>
+                </div>
+            </article>
+
+            <!-- Date Item 3: Skin care / spa aften -->
+            <article class="date-card group bg-white/90 backdrop-blur-sm rounded-2xl overflow-hidden border border-pink-100/80 shadow-sm card-hover flex flex-col" data-category="hjemme">
+                <div class="relative h-48 sm:h-52 bg-slate-100 overflow-hidden">
+                    <img 
+                        src="billeder/skincare.jpg" 
+                        alt="Skin care / spa aften" 
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        onerror="this.src='https://placehold.co/600x400/FDE2E4/340415?text=Billede+på+vej';"
+                    />
+                    <span class="absolute top-3 right-3 px-3 py-1 bg-white/90 backdrop-blur-md text-xs font-semibold text-plum-dark rounded-full border border-pink-100 shadow-sm flex items-center gap-1">
+                        🏠 Hjemme
+                    </span>
+                </div>
+                <div class="p-6 flex flex-col flex-grow">
+                    <h2 class="text-xl font-semibold text-plum-dark mb-2">Skin care / spa aften</h2>
+                    <p class="text-plum-dark/75 text-sm leading-relaxed flex-grow">
+                        Vi laver skincare, tænder stearinlys og giver hinanden massage
+                    </p>
+                </div>
+            </article>
+
+            <!-- Date Item 4: Lave 3-retters middag -->
+            <article class="date-card group bg-white/90 backdrop-blur-sm rounded-2xl overflow-hidden border border-pink-100/80 shadow-sm card-hover flex flex-col" data-category="hjemme">
+                <div class="relative h-48 sm:h-52 bg-slate-100 overflow-hidden">
+                    <img 
+                        src="billeder/mad.jpg" 
+                        alt="Lave 3-retters middag" 
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        onerror="this.src='https://placehold.co/600x400/FFF3B0/340415?text=Billede+på+vej';"
+                    />
+                    <span class="absolute top-3 right-3 px-3 py-1 bg-white/90 backdrop-blur-md text-xs font-semibold text-plum-dark rounded-full border border-yellow-100 shadow-sm flex items-center gap-1">
+                        🏠 Hjemme
+                    </span>
+                </div>
+                <div class="p-6 flex flex-col flex-grow">
+                    <h2 class="text-xl font-semibold text-plum-dark mb-2">Lave 3-retters middag</h2>
+                    <p class="text-plum-dark/75 text-sm leading-relaxed flex-grow">
+                        Vi finder på en forret, hovedret og dessert - som vi sammen laver med god musik i baggrunden
+                    </p>
+                </div>
+            </article>
+
+            <!-- Date Item 5: Dry-clay værksted -->
+            <article class="date-card group bg-white/90 backdrop-blur-sm rounded-2xl overflow-hidden border border-pink-100/80 shadow-sm card-hover flex flex-col" data-category="hjemme">
+                <div class="relative h-48 sm:h-52 bg-slate-100 overflow-hidden">
+                    <img 
+                        src="billeder/dryclay.jpg" 
+                        alt="Dry-clay værksted" 
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        onerror="this.src='https://placehold.co/600x400/FDE2E4/340415?text=Billede+på+vej';"
+                    />
+                    <span class="absolute top-3 right-3 px-3 py-1 bg-white/90 backdrop-blur-md text-xs font-semibold text-plum-dark rounded-full border border-pink-100 shadow-sm flex items-center gap-1">
+                        🏠 Hjemme
+                    </span>
+                </div>
+                <div class="p-6 flex flex-col flex-grow">
+                    <h2 class="text-xl font-semibold text-plum-dark mb-2">Dry-clay værksted</h2>
+                    <p class="text-plum-dark/75 text-sm leading-relaxed flex-grow">
+                        Vi køber dry-clay, som vi kan lave små ting ud af. F.eks. magneter, bordskånere eller spil. Når det er tørt, maler og lakerer vi det
+                    </p>
+                </div>
+            </article>
+
+            <!-- Date Item 6: Lave klistermærker -->
+            <article class="date-card group bg-white/90 backdrop-blur-sm rounded-2xl overflow-hidden border border-pink-100/80 shadow-sm card-hover flex flex-col" data-category="hjemme">
+                <div class="relative h-48 sm:h-52 bg-slate-100 overflow-hidden">
+                    <img 
+                        src="billeder/stickers.jpg" 
+                        alt="Lave klistermærker" 
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        onerror="this.src='https://placehold.co/600x400/FFF3B0/340415?text=Billede+på+vej';"
+                    />
+                    <span class="absolute top-3 right-3 px-3 py-1 bg-white/90 backdrop-blur-md text-xs font-semibold text-plum-dark rounded-full border border-yellow-100 shadow-sm flex items-center gap-1">
+                        🏠 Hjemme
+                    </span>
+                </div>
+                <div class="p-6 flex flex-col flex-grow">
+                    <h2 class="text-xl font-semibold text-plum-dark mb-2">Lave klistermærker</h2>
+                    <p class="text-plum-dark/75 text-sm leading-relaxed flex-grow">
+                        Vi tegner/maler på papir, klipper motiverne ud og lægger på bagepapir med tape over.
+                    </p>
+                </div>
+            </article>
+
+            <!-- Date Item 7: Spille Minecraft -->
+            <article class="date-card group bg-white/90 backdrop-blur-sm rounded-2xl overflow-hidden border border-pink-100/80 shadow-sm card-hover flex flex-col" data-category="hjemme">
+                <div class="relative h-48 sm:h-52 bg-slate-100 overflow-hidden">
+                    <img 
+                        src="billeder/minecraft.jpg" 
+                        alt="Spille Minecraft" 
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        onerror="this.src='https://placehold.co/600x400/FDE2E4/340415?text=Billede+på+vej';"
+                    />
+                    <span class="absolute top-3 right-3 px-3 py-1 bg-white/90 backdrop-blur-md text-xs font-semibold text-plum-dark rounded-full border border-pink-100 shadow-sm flex items-center gap-1">
+                        🏠 Hjemme
+                    </span>
+                </div>
+                <div class="p-6 flex flex-col flex-grow">
+                    <h2 class="text-xl font-semibold text-plum-dark mb-2">Spille Minecraft</h2>
+                    <p class="text-plum-dark/75 text-sm leading-relaxed flex-grow">
+                        Vi tænder lys, gør det hyggeligt og spiller sammen med en comfort-serie i baggrunden
+                    </p>
+                </div>
+            </article>
+
+            <!-- Date Item 8: Skære græskar -->
+            <article class="date-card group bg-white/90 backdrop-blur-sm rounded-2xl overflow-hidden border border-pink-100/80 shadow-sm card-hover flex flex-col" data-category="hjemme">
+                <div class="relative h-48 sm:h-52 bg-slate-100 overflow-hidden">
+                    <img 
+                        src="billeder/pumpkin.jpg" 
+                        alt="Skære græskar" 
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        onerror="this.src='https://placehold.co/600x400/FFF3B0/340415?text=Billede+på+vej';"
+                    />
+                    <span class="absolute top-3 right-3 px-3 py-1 bg-white/90 backdrop-blur-md text-xs font-semibold text-plum-dark rounded-full border border-yellow-100 shadow-sm flex items-center gap-1">
+                        🏠 Hjemme
+                    </span>
+                </div>
+                <div class="p-6 flex flex-col flex-grow">
+                    <h2 class="text-xl font-semibold text-plum-dark mb-2">Skære græskar</h2>
+                    <p class="text-plum-dark/75 text-sm leading-relaxed flex-grow">
+                        Vi sidder i stuen, hører musik og skærer græskar sammen. Vi kan eventuelt lave græskarkage af indmaden bagefter&lt;3
+                    </p>
+                </div>
+            </article>
+
+            <!-- Date Item 9: Male i malebøger -->
+            <article class="date-card group bg-white/90 backdrop-blur-sm rounded-2xl overflow-hidden border border-pink-100/80 shadow-sm card-hover flex flex-col" data-category="hjemme">
+                <div class="relative h-48 sm:h-52 bg-slate-100 overflow-hidden">
+                    <img 
+                        src="billeder/malebog.jpg" 
+                        alt="Male i malebøger" 
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        onerror="this.src='https://placehold.co/600x400/FDE2E4/340415?text=Billede+på+vej';"
+                    />
+                    <span class="absolute top-3 right-3 px-3 py-1 bg-white/90 backdrop-blur-md text-xs font-semibold text-plum-dark rounded-full border border-pink-100 shadow-sm flex items-center gap-1">
+                        🏠 Hjemme
+                    </span>
+                </div>
+                <div class="p-6 flex flex-col flex-grow">
+                    <h2 class="text-xl font-semibold text-plum-dark mb-2">Male i malebøger</h2>
+                    <p class="text-plum-dark/75 text-sm leading-relaxed flex-grow">
+                        Vi maler i malebøger, mens vi spiser snacks og ser en comfort-serie, der kører i baggrunden
+                    </p>
+                </div>
+            </article>
+
+            <!-- Date Item 10: Genbrugsdate -->
+            <article class="date-card group bg-white/90 backdrop-blur-sm rounded-2xl overflow-hidden border border-pink-100/80 shadow-sm card-hover flex flex-col" data-category="ude">
+                <div class="relative h-48 sm:h-52 bg-slate-100 overflow-hidden">
+                    <img 
+                        src="billeder/genbrug.jpg" 
+                        alt="Genbrugsdate" 
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        onerror="this.src='https://placehold.co/600x400/FFF3B0/340415?text=Billede+på+vej';"
+                    />
+                    <span class="absolute top-3 right-3 px-3 py-1 bg-white/90 backdrop-blur-md text-xs font-semibold text-plum-dark rounded-full border border-yellow-100 shadow-sm flex items-center gap-1">
+                        🌿 Ude
+                    </span>
+                </div>
+                <div class="p-6 flex flex-col flex-grow">
+                    <h2 class="text-xl font-semibold text-plum-dark mb-2">Genbrugsdate</h2>
+                    <p class="text-plum-dark/75 text-sm leading-relaxed flex-grow">
+                        Vi tager på diverse genbrug og laver en dag ud af det
+                    </p>
+                </div>
+            </article>
+
+            <!-- Date Item 11: Male keramik -->
+            <article class="date-card group bg-white/90 backdrop-blur-sm rounded-2xl overflow-hidden border border-pink-100/80 shadow-sm card-hover flex flex-col" data-category="ude">
+                <div class="relative h-48 sm:h-52 bg-slate-100 overflow-hidden">
+                    <img 
+                        src="billeder/keramik.jpg" 
+                        alt="Male keramik" 
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        onerror="this.src='https://placehold.co/600x400/FDE2E4/340415?text=Billede+på+vej';"
+                    />
+                    <span class="absolute top-3 right-3 px-3 py-1 bg-white/90 backdrop-blur-md text-xs font-semibold text-plum-dark rounded-full border border-pink-100 shadow-sm flex items-center gap-1">
+                        🌿 Ude
+                    </span>
+                </div>
+                <div class="p-6 flex flex-col flex-grow">
+                    <h2 class="text-xl font-semibold text-plum-dark mb-2">Male keramik</h2>
+                    <p class="text-plum-dark/75 text-sm leading-relaxed flex-grow">
+                        Vi tager ud og maler keramik på creative space eller lignende
+                    </p>
+                </div>
+            </article>
+
+            <!-- Date Item 12: Dress up + drinks -->
+            <article class="date-card group bg-white/90 backdrop-blur-sm rounded-2xl overflow-hidden border border-pink-100/80 shadow-sm card-hover flex flex-col" data-category="ude">
+                <div class="relative h-48 sm:h-52 bg-slate-100 overflow-hidden">
+                    <img 
+                        src="billeder/beer.jpg" 
+                        alt="Dress up + drinks" 
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        onerror="this.src='https://placehold.co/600x400/FFF3B0/340415?text=Billede+på+vej';"
+                    />
+                    <span class="absolute top-3 right-3 px-3 py-1 bg-white/90 backdrop-blur-md text-xs font-semibold text-plum-dark rounded-full border border-yellow-100 shadow-sm flex items-center gap-1">
+                        🌿 Ude
+                    </span>
+                </div>
+                <div class="p-6 flex flex-col flex-grow">
+                    <h2 class="text-xl font-semibold text-plum-dark mb-2">Dress up + drinks</h2>
+                    <p class="text-plum-dark/75 text-sm leading-relaxed flex-grow">
+                        Vi gør noget ekstra ud af os selv og får en øl eller nogle drinks på en bar
+                    </p>
+                </div>
+            </article>
+
+            <!-- Date Item 13: Bagagerumsdate -->
+            <article class="date-card group bg-white/90 backdrop-blur-sm rounded-2xl overflow-hidden border border-pink-100/80 shadow-sm card-hover flex flex-col" data-category="ude">
+                <div class="relative h-48 sm:h-52 bg-slate-100 overflow-hidden">
+                    <img 
+                        src="billeder/bagagerum.jpg" 
+                        alt="Bagagerumsdate" 
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        onerror="this.src='https://placehold.co/600x400/FDE2E4/340415?text=Billede+på+vej';"
+                    />
+                    <span class="absolute top-3 right-3 px-3 py-1 bg-white/90 backdrop-blur-md text-xs font-semibold text-plum-dark rounded-full border border-pink-100 shadow-sm flex items-center gap-1">
+                        🌿 Ude
+                    </span>
+                </div>
+                <div class="p-6 flex flex-col flex-grow">
+                    <h2 class="text-xl font-semibold text-plum-dark mb-2">Bagagerumsdate</h2>
+                    <p class="text-plum-dark/75 text-sm leading-relaxed flex-grow">
+                        Vi låner en bil og kører et pænt og privat sted hen. Så ser vi film i bagagerummet med dyne og snacks til
+                    </p>
+                </div>
+            </article>
+
+        </section>
+    </main>
+
+    <footer class="w-full border-t border-pink-200/40 bg-white/50 backdrop-blur-sm py-6 mt-16 text-center text-xs text-plum-dark/60">
+        <p>Lauras date arkiv • Lavet med kærlighed ❤️</p>
+    </footer>
+
+    <script>
+        function filterDates(category) {
+            const cards = document.querySelectorAll('.date-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            // Reset all buttons styling
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-plum-dark', 'text-white', 'border-plum-dark', 'active-filter');
+                btn.classList.add('bg-white/90', 'text-plum-dark', 'border-pink-200');
+            });
+
+            // Highlight selected button
+            const selectedBtn = document.getElementById(`filter-${category}`);
+            if (selectedBtn) {
+                selectedBtn.classList.remove('bg-white/90', 'border-pink-200');
+                selectedBtn.classList.add('bg-plum-dark', 'text-white', 'border-plum-dark', 'active-filter');
+            }
+
+            // Show / Hide date cards
+            cards.forEach(card => {
+                const cardCategory = card.getAttribute('data-category');
+                
+                if (category === 'all' || cardCategory === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
