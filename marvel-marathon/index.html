@@ -324,7 +324,7 @@
         // DATAGRUNDLAG FOR FILM (Præcise relative stier)
         const watchedMovies = [
             { title: "Captain America: The First Avenger", year: 2011, duration: 124, rating: 3, comment: "Den var god nok, men synes han var super nederen/ubehagelig at se på, da de havde lavet ham helt lille og spinkel. Meget uncanny. Men meget ligetil film", poster: "./plakater/captain_america_1.jpg" },
-            { title: "Captain Marvel", year: 2019, duration: 124, rating: 3, comment: "eg synes egentlig den var meget god. Jeg så godt nok først anden halvdel af filmen flere uger efter, så var lidt forvirret, da jeg havde glemt lidt. Jeg kunne godt lide hvor meget Fury var med i den her. Dog synes jeg lige pludselig, at hun blev ret OP?? Uden nogen sådan rigtig forklaring. Det var lidt weird.", poster: "./plakater/captain_marvel.jpg" },
+            { title: "Captain Marvel", year: 2019, duration: 124, rating: 3, comment: "Jeg synes egentlig den var meget god. Jeg så godt nok først anden halvdel af filmen flere uger efter, så var lidt forvirret, da jeg havde glemt lidt. Jeg kunne godt lide hvor meget Fury var med i den her. Dog synes jeg lige pludselig, at hun blev ret OP?? Uden nogen sådan rigtig forklaring. Det var lidt weird.", poster: "./plakater/captain_marvel.jpg" },
             { title: "Iron Man", year: 2008, duration: 126, rating: 4, comment: "Virkelig god! Meget intrigued og elsker tony stark som karakter", poster: "./plakater/ironman_1.jpg" },
             { title: "Iron Man 2", year: 2010, duration: 124, rating: 3, comment: "Også virkelig god! Men Pepper var totalt ragebait", poster: "./plakater/ironman_2.jpg" },
             { title: "Marvel's The Avengers", year: 2012, duration: 143, rating: 1, comment: "Virkelig virkelig boring. Fell asleep og magtede nærmest ikke se resten", poster: "./plakater/marvel_the_avengers.jpg" },
@@ -343,7 +343,9 @@
             { title: "Spider-Man: Homecoming", year: 2017, duration: 133, rating: 3, comment: "Den var ret god men også virkelig frustrerende og ragebait. Jeg så den også over 4-5 omgange, så den havde måske scoret højere, hvis jeg havde set den i én køre..?", poster: "./plakater/spiderman_1.jpg" },
             { title: "Black Panther", year: 2018, duration: 135, rating: 5, comment: "Den var vanvittig! Virkelig god wow!! Jeg ELSKER hvor mange seje kvinder der var med and the plot was just sooo good!!", poster: "./plakater/black_panther.jpeg", isFavorite: true },
             { title: "Ant-Man and the Wasp", year: 2018, duration: 118, rating: 4, comment: "Den var ret sød, men også lidt ragebait til tider. Slutningen i rulleteksterne had me shocked tho?? What a cliffhanger", poster: "./plakater/antman_2.jpeg" },
-            { title: "Avengers: Infinity War", year: 2018, duration: 149, rating: 5, comment: "Den var crazy og jeg føler jeg fløj igennem filmen, taget i betragtning at den tog 2,5 timer. Var shocked SÅ mange gange it’s insane", poster: "./plakater/infinity_war.jpg" }
+            { title: "Avengers: Infinity War", year: 2018, duration: 149, rating: 5, comment: "Den var crazy og jeg føler jeg fløj igennem filmen, taget i betragtning at den tog 2,5 timer. Var shocked SÅ mange gange it’s insane", poster: "./plakater/infinity_war.jpg" },
+            { title: "Avengers: Endgame", year: 2019, duration: 185, rating: 5, comment: "Jeg så den her i IMax og den var virkelig god! Jeg var dog lidt distraheret af en irriterende person, som sad foran - så mange triste scene blev lidt ødelagt for mig. F.eks. da Iron man døde.. Det var ret nederen, men jeg synes stadig den var vanvittig.", poster: "./plakater/endgame.jpg" },
+            { title: "Spider-Man: Far From Home", year: 2019, duration: 130, rating: 3, comment: "Jeg har set den før, men den er altså bare lidt kedelig.. Og jeg kan virkelig ikke lide Mysterio. Ikke min yndlings Spiderman film må jeg sige..", poster: "./plakater/spiderman_2.jpg" }
         ];
 
         // Funktion til kun at vise hele stjerner
@@ -438,6 +440,7 @@
                             <button class="toggle-btn" style="display:none;" onclick="toggleComment(this)">Læs mere</button>
                         </div>
                     </div>
+                </div>
                 `;
                 grid.appendChild(card);
             });
