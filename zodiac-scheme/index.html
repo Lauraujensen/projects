@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stjernetegn i mit liv</title>
+    <!-- Google Fonts for elegant typografi -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            /* Baggrundsfarver: Tonet nuance i toppen der fader hurtigt ned til en lys, ren bund */
+            --bg-top: #eaecd2;
+            --bg-bottom: #FAF9F6;
+            
+            /* Glas-effekt for kort */
+            --card-bg: rgba(255, 255, 255, 0.45);
+            --card-border: rgba(255, 255, 255, 0.85);
+            --text-primary: #464d3d;
+            --text-secondary: #57634f;
+
+            /* Specifikke farver for overskrifter og navnetekst */
+            --color-air: #5f5278;
+            --color-water: #396467;
+            --color-fire: #8a6529;
+            --color-earth: #3d4a26;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            /* Baggrunden fader over de øverste 450px og er derefter den lyse --bg-bottom */
+            background: linear-gradient(180deg, var(--bg-top) 0px, var(--bg-bottom) 450px, var(--bg-bottom) 100%);
+            background-repeat: no-repeat;
+            background-color: var(--bg-bottom);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        /* Glassmorphism */
+        .glass-panel {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.04);
+        }
+
+        .zodiac-card {
+            transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+        }
+
+        .zodiac-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Tooltip style for navneskilte */
+        .name-badge {
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background-color: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+        }
+
+        .name-badge:hover {
+            transform: scale(1.04);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+
+        /* Tooltip boble */
+        .name-badge::after {
+            content: attr(data-relation);
+            position: absolute;
+            bottom: 130%;
+            left: 50%;
+            transform: translateX(-50%) translateY(4px);
+            background: #2d3429;
+            color: #ffffff;
+            font-size: 0.75rem;
+            font-weight: 400;
+            padding: 5px 11px;
+            border-radius: 8px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+            transition: opacity 0.18s ease, transform 0.18s ease;
+            z-index: 20;
+        }
+
+        /* Pil til tooltip */
+        .name-badge::before {
+            content: '';
+            position: absolute;
+            bottom: 115%;
+            left: 50%;
+            transform: translateX(-50%) translateY(4px);
+            border-width: 5px;
+            border-style: solid;
+            border-color: #2d3429 transparent transparent transparent;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.18s ease, transform 0.18s ease;
+            z-index: 20;
+        }
+
+        /* Vis tooltip ved hover og touch */
+        .name-badge:hover::after,
+        .name-badge:hover::before,
+        .name-badge:focus::after,
+        .name-badge:focus::before {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Element baggrundsfarver og tekstfarver for overskrifter + navne */
+
+        /* Lufttegn (Vægt, Tvilling, Vandmand) */
+        .element-air {
+            background: rgba(219, 213, 231, 0.30);
+            border-color: rgba(219, 213, 231, 0.6);
+        }
+        .element-air:hover {
+            background: rgba(219, 213, 231, 0.45);
+        }
+        .element-air .zodiac-title,
+        .element-air .name-badge { 
+            color: var(--color-air); 
+        }
+
+        /* Vandtegn (Krebs, Fisk, Skorpion) */
+        .element-water {
+            background: rgba(196, 223, 225, 0.35);
+            border-color: rgba(196, 223, 225, 0.8);
+        }
+        .element-water:hover {
+            background: rgba(196, 223, 225, 0.45);
+        }
+        .element-water .zodiac-title,
+        .element-water .name-badge { 
+            color: var(--color-water); 
+        }
+
+        /* Ildtegn (Løve, Skytte, Vædder) */
+        .element-fire {
+            background: rgba(231, 204, 156, 0.15);
+            border-color: rgba(231, 204, 156, 0.6);
+        }
+        .element-fire:hover {
+            background: rgba(231, 204, 156, 0.25);
+        }
+        .element-fire .zodiac-title,
+        .element-fire .name-badge { 
+            color: var(--color-fire); 
+        }
+
+        /* Jordtegn (Tyr, Jomfru, Stenbuk) */
+        .element-earth {
+            background: rgba(158, 174, 127, 0.15);
+            border-color: rgba(158, 174, 127, 0.4);
+        }
+        .element-earth:hover {
+            background: rgba(158, 174, 127, 0.20);
+        }
+        .element-earth .zodiac-title,
+        .element-earth .name-badge { 
+            color: var(--color-earth); 
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-8 flex flex-col items-center">
+
+    <header class="text-center mb-8 max-w-xl pt-4">
+        <h1 class="text-3xl sm:text-4xl font-bold tracking-tight mb-2">Stjernetegn i mit liv</h1>
+        <p class="text-base sm:text-lg text-emerald-950/70 font-light">Familie, venner og kæledyr fordelt på stjernetegn</p>
+    </header>
+
+    <section class="w-full max-w-6xl mb-8">
+        <div class="glass-panel rounded-2xl p-5 sm:p-6">
+            <h2 class="text-lg font-semibold mb-3 flex items-center gap-2 text-emerald-950">
+                Tilføj ny person
+            </h2>
+            <form id="addPersonForm" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                <input type="text" id="personName" placeholder="Navn (f.eks. Anna)" required
+                    class="px-4 py-2.5 rounded-xl border border-white/60 bg-white/40 focus:outline-none focus:ring-2 focus:ring-emerald-600/50 text-sm placeholder-emerald-900/50">
+                
+                <input type="text" id="personRelation" placeholder="Relation (f.eks. Veninde)" required
+                    class="px-4 py-2.5 rounded-xl border border-white/60 bg-white/40 focus:outline-none focus:ring-2 focus:ring-emerald-600/50 text-sm placeholder-emerald-900/50">
+                
+                <select id="personSign" required
+                    class="px-4 py-2.5 rounded-xl border border-white/60 bg-white/40 focus:outline-none focus:ring-2 focus:ring-emerald-600/50 text-sm text-emerald-950">
+                    <option value="" disabled selected>Vælg stjernetegn...</option>
+                </select>
+
+                <button type="submit" 
+                    style="background-color: #A0AD89;"
+                    class="px-5 py-2.5 hover:bg-[#8F9C78] text-white font-medium rounded-xl shadow-sm transition-all text-sm active:scale-95 border border-white/30">
+                    + Tilføj til skema
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <main class="w-full max-w-6xl space-y-8" id="elementSections">
+        <!-- Rækkerne for elementerne oprettes dynamisk via JS -->
+    </main>
+
+    <script>
+        // Standardliste over personer. Du kan nemt tilføje nye personer direkte her i koden!
+        const initialPersons = [
+            { name: "Debora", relation: "Veninde", sign: "taurus" },
+            { name: "Esben", relation: "Søsters kæreste", sign: "taurus" },
+            { name: "Mathilde Skøt", relation: "Veninde", sign: "taurus" },
+            { name: "Bjarne", relation: "Farfar", sign: "virgo" },
+            { name: "Fiona", relation: "Kat", sign: "virgo" },
+            { name: "Frida", relation: "Hund", sign: "virgo" },
+            { name: "Poul", relation: "Onkel", sign: "virgo" },
+            { name: "Smilla", relation: "Veninde", sign: "virgo" },
+            { name: "Nikolai", relation: "Kæreste", sign: "capricorn" },
+            { name: "Emma", relation: "Kusine", sign: "pisces" },
+            { name: "Laura", relation: "Mig", sign: "cancer" },
+            { name: "Thomas", relation: "Far", sign: "scorpio" },
+            { name: "Helle", relation: "Faster", sign: "aquarius" },
+            { name: "Inge", relation: "Moster", sign: "aquarius" },
+            { name: "Lotte", relation: "Mor", sign: "aquarius" },
+            { name: "Signe", relation: "Søster", sign: "aquarius" },
+            { name: "Karen", relation: "Farmor", sign: "gemini" },
+            { name: "Lena", relation: "Mormor", sign: "aries" },
+            { name: "Jeppe", relation: "Bror", sign: "leo" },
+            { name: "Rosa", relation: "Hund", sign: "leo" },
+            { name: "Sanne", relation: "Veninde", sign: "leo" },
+            { name: "Per", relation: "Bedstefar", sign: "sagittarius" }
+        ];
+
+        // Hent gemte personer fra localStorage, eller brug initialPersons hvis der ingen er gemt endnu
+        function getSavedPersons() {
+            const stored = localStorage.getItem('zodiac_persons');
+            if (stored) {
+                try {
+                    return JSON.parse(stored);
+                } catch (e) {
+                    return [...initialPersons];
+                }
+            }
+            return [...initialPersons];
+        }
+
+        function savePersons(personsList) {
+            localStorage.setItem('zodiac_persons', JSON.stringify(personsList));
+        }
+
+        // Grupperet datastruktur opdelt efter elementrækker
+        const elementGroups = [
+            {
+                element: "earth",
+                title: "Jordtegn",
+                signs: [
+                    { id: "taurus", daSign: "Tyren", enSign: "Taurus", dates: "20. apr - 20. maj", icon: "/zodiacs/taurus.png" },
+                    { id: "virgo", daSign: "Jomfruen", enSign: "Virgo", dates: "23. aug - 22. sep", icon: "/zodiacs/virgo.png" },
+                    { id: "capricorn", daSign: "Stenbukken", enSign: "Capricorn", dates: "22. dec - 19. jan", icon: "/zodiacs/capricorn.png" }
+                ]
+            },
+            {
+                element: "water",
+                title: "Vandtegn",
+                signs: [
+                    { id: "pisces", daSign: "Fiskene", enSign: "Pisces", dates: "19. feb - 20. mar", icon: "/zodiacs/pisces.png" },
+                    { id: "cancer", daSign: "Krebsen", enSign: "Cancer", dates: "21. jun - 22. jul", icon: "/zodiacs/cancer.png" },
+                    { id: "scorpio", daSign: "Skorpionen", enSign: "Scorpio", dates: "23. okt - 21. nov", icon: "/zodiacs/scorpio.png" }
+                ]
+            },
+            {
+                element: "air",
+                title: "Lufttegn",
+                signs: [
+                    { id: "aquarius", daSign: "Vandmanden", enSign: "Aquarius", dates: "20. jan - 18. feb", icon: "/zodiacs/aquarius.png" },
+                    { id: "gemini", daSign: "Tvillingen", enSign: "Gemini", dates: "21. maj - 20. jun", icon: "/zodiacs/gemini.png" },
+                    { id: "libra", daSign: "Vægten", enSign: "Libra", dates: "23. sep - 22. okt", icon: "/zodiacs/libra.png" }
+                ]
+            },
+            {
+                element: "fire",
+                title: "Ildtegn",
+                signs: [
+                    { id: "aries", daSign: "Vædderen", enSign: "Aries", dates: "21. mar - 19. apr", icon: "/zodiacs/aries.png" },
+                    { id: "leo", daSign: "Løven", enSign: "Leo", dates: "23. jul - 22. aug", icon: "/zodiacs/leo.png" },
+                    { id: "sagittarius", daSign: "Skytten", enSign: "Sagittarius", dates: "22. nov - 21. dec", icon: "/zodiacs/sagittarius.png" }
+                ]
+            }
+        ];
+
+        // Udfyld select-dropdown med alle stjernetegn
+        const signSelect = document.getElementById('personSign');
+        elementGroups.forEach(group => {
+            group.signs.forEach(z => {
+                const option = document.createElement('option');
+                option.value = z.id;
+                option.textContent = z.daSign;
+                signSelect.appendChild(option);
+            });
+        });
+
+        function renderGrid() {
+            const persons = getSavedPersons();
+            const container = document.getElementById('elementSections');
+            container.innerHTML = '';
+
+            elementGroups.forEach(group => {
+                const section = document.createElement('section');
+                section.className = 'w-full';
+
+                const title = document.createElement('h2');
+                title.className = 'text-xl font-bold mb-3 tracking-tight text-emerald-950/80 px-1';
+                title.textContent = group.title;
+                section.appendChild(title);
+
+                const grid = document.createElement('div');
+                grid.className = 'grid grid-cols-1 md:grid-cols-3 gap-6';
+
+                group.signs.forEach(zodiac => {
+                    // Filtrér personer tilhørende dette stjernetegn
+                    const zodiacPersons = persons
+                        .filter(p => p.sign === zodiac.id)
+                        .sort((a, b) => a.name.localeCompare(b.name, 'da'));
+
+                    const card = document.createElement('div');
+                    card.className = `glass-panel zodiac-card rounded-2xl p-5 flex flex-col element-${group.element}`;
+
+                    const header = document.createElement('div');
+                    header.className = 'flex justify-between items-start mb-4 pb-3 border-b border-black/5';
+                    header.innerHTML = `
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <img src="${zodiac.icon}" alt="${zodiac.daSign}" class="w-6 h-6 object-contain" />
+                                <h3 class="zodiac-title text-xl font-bold tracking-tight">${zodiac.daSign}</h3>
+                            </div>
+                            <span class="text-xs text-emerald-950/40 font-medium uppercase tracking-wider">${zodiac.enSign}</span>
+                        </div>
+                        <span class="text-xs text-emerald-950/60 font-light bg-white/40 px-2.5 py-1 rounded-lg border border-white/60">
+                            ${zodiac.dates}
+                        </span>
+                    `;
+                    card.appendChild(header);
+
+                    const ul = document.createElement('ul');
+                    ul.className = 'flex flex-wrap gap-2 items-center flex-grow min-h-[48px]';
+
+                    if (zodiacPersons.length > 0) {
+                        zodiacPersons.forEach(person => {
+                            const li = document.createElement('li');
+                            li.className = 'name-badge px-3.5 py-1.5 rounded-xl text-sm font-medium shadow-sm';
+                            li.textContent = person.name;
+                            li.setAttribute('data-relation', person.relation);
+                            li.setAttribute('tabindex', '0');
+                            ul.appendChild(li);
+                        });
+                    } else {
+                        const emptyLi = document.createElement('li');
+                        emptyLi.className = 'text-sm font-light text-emerald-950/40 italic py-1';
+                        emptyLi.textContent = 'Ingen personer endnu';
+                        ul.appendChild(emptyLi);
+                    }
+
+                    card.appendChild(ul);
+                    grid.appendChild(card);
+                });
+
+                section.appendChild(grid);
+                container.appendChild(section);
+            });
+        }
+
+        document.getElementById('addPersonForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const nameInput = document.getElementById('personName');
+            const relationInput = document.getElementById('personRelation');
+            const signSelect = document.getElementById('personSign');
+
+            const name = nameInput.value.trim();
+            const relation = relationInput.value.trim();
+            const sign = signSelect.value;
+
+            if (!name || !relation || !sign) return;
+
+            // Hent den nuværende liste, tilføj den nye og gem igen
+            const currentPersons = getSavedPersons();
+            currentPersons.push({ name, relation, sign });
+            savePersons(currentPersons);
+
+            renderGrid();
+
+            nameInput.value = '';
+            relationInput.value = '';
+            signSelect.selectedIndex = 0;
+        });
+
+        // Indlæs skemaet første gang
+        renderGrid();
+    </script>
+</body>
+</html>
