@@ -61,6 +61,12 @@
             transition: all 0.2s ease;
             background-color: rgba(255, 255, 255, 0.7);
             border: 1px solid rgba(255, 255, 255, 0.9);
+            /* Ensartet højde og justering så alle skilte flugter perfekt */
+            height: 2rem; /* 32px */
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
         }
 
         .name-badge:hover {
@@ -219,42 +225,42 @@
             { name: "Jørgen", relation: "Svigerfar", sign: "aquarius" },
         ];
 
-        // Opbygning af element-grupper og stjernetegn
+        // Opbygning af element-grupper og stjernetegn (Rettede relative stier)
         const elementGroups = [
             {
                 element: "earth",
                 title: "Jordtegn",
                 signs: [
-                    { id: "taurus", daSign: "Tyren", enSign: "Taurus", dates: "20. apr - 20. maj", icon: "/zodiacs/taurus.png" },
-                    { id: "virgo", daSign: "Jomfruen", enSign: "Virgo", dates: "23. aug - 22. sep", icon: "/zodiacs/virgo.png" },
-                    { id: "capricorn", daSign: "Stenbukken", enSign: "Capricorn", dates: "22. dec - 19. jan", icon: "/zodiacs/capricorn.png" }
+                    { id: "taurus", daSign: "Tyren", enSign: "Taurus", dates: "20. apr - 20. maj", icon: "./zodiacs/taurus.png" },
+                    { id: "virgo", daSign: "Jomfruen", enSign: "Virgo", dates: "23. aug - 22. sep", icon: "./zodiacs/virgo.png" },
+                    { id: "capricorn", daSign: "Stenbukken", enSign: "Capricorn", dates: "22. dec - 19. jan", icon: "./zodiacs/capricorn.png" }
                 ]
             },
             {
                 element: "water",
                 title: "Vandtegn",
                 signs: [
-                    { id: "pisces", daSign: "Fiskene", enSign: "Pisces", dates: "19. feb - 20. mar", icon: "/zodiacs/pisces.png" },
-                    { id: "cancer", daSign: "Krebsen", enSign: "Cancer", dates: "21. jun - 22. jul", icon: "/zodiacs/cancer.png" },
-                    { id: "scorpio", daSign: "Skorpionen", enSign: "Scorpio", dates: "23. okt - 21. nov", icon: "/zodiacs/scorpio.png" }
+                    { id: "pisces", daSign: "Fiskene", enSign: "Pisces", dates: "19. feb - 20. mar", icon: "./zodiacs/pisces.png" },
+                    { id: "cancer", daSign: "Krebsen", enSign: "Cancer", dates: "21. jun - 22. jul", icon: "./zodiacs/cancer.png" },
+                    { id: "scorpio", daSign: "Skorpionen", enSign: "Scorpio", dates: "23. okt - 21. nov", icon: "./zodiacs/scorpio.png" }
                 ]
             },
             {
                 element: "air",
                 title: "Lufttegn",
                 signs: [
-                    { id: "aquarius", daSign: "Vandmanden", enSign: "Aquarius", dates: "20. jan - 18. feb", icon: "/zodiacs/aquarius.png" },
-                    { id: "gemini", daSign: "Tvillingen", enSign: "Gemini", dates: "21. maj - 20. jun", icon: "/zodiacs/gemini.png" },
-                    { id: "libra", daSign: "Vægten", enSign: "Libra", dates: "23. sep - 22. okt", icon: "/zodiacs/libra.png" }
+                    { id: "aquarius", daSign: "Vandmanden", enSign: "Aquarius", dates: "20. jan - 18. feb", icon: "./zodiacs/aquarius.png" },
+                    { id: "gemini", daSign: "Tvillingen", enSign: "Gemini", dates: "21. maj - 20. jun", icon: "./zodiacs/gemini.png" },
+                    { id: "libra", daSign: "Vægten", enSign: "Libra", dates: "23. sep - 22. okt", icon: "./zodiacs/libra.png" }
                 ]
             },
             {
                 element: "fire",
                 title: "Ildtegn",
                 signs: [
-                    { id: "aries", daSign: "Vædderen", enSign: "Aries", dates: "21. mar - 19. apr", icon: "/zodiacs/aries.png" },
-                    { id: "leo", daSign: "Løven", enSign: "Leo", dates: "23. jul - 22. aug", icon: "/zodiacs/leo.png" },
-                    { id: "sagittarius", daSign: "Skytten", enSign: "Sagittarius", dates: "22. nov - 21. dec", icon: "/zodiacs/sagittarius.png" }
+                    { id: "aries", daSign: "Vædderen", enSign: "Aries", dates: "21. mar - 19. apr", icon: "./zodiacs/aries.png" },
+                    { id: "leo", daSign: "Løven", enSign: "Leo", dates: "23. jul - 22. aug", icon: "./zodiacs/leo.png" },
+                    { id: "sagittarius", daSign: "Skytten", enSign: "Sagittarius", dates: "22. nov - 21. dec", icon: "./zodiacs/sagittarius.png" }
                 ]
             }
         ];
@@ -301,12 +307,12 @@
                     card.appendChild(header);
 
                     const ul = document.createElement('ul');
-                    ul.className = 'flex flex-wrap gap-2 items-center flex-grow min-h-[48px]';
+                    ul.className = 'flex flex-wrap gap-2 items-start flex-grow min-h-[48px]';
 
                     if (zodiacPersons.length > 0) {
                         zodiacPersons.forEach(person => {
                             const li = document.createElement('li');
-                            li.className = 'name-badge px-3.5 py-1.5 rounded-xl text-sm font-medium shadow-sm';
+                            li.className = 'name-badge px-3.5 rounded-xl text-sm font-medium shadow-sm';
                             li.textContent = person.name;
                             li.setAttribute('data-relation', person.relation);
                             li.setAttribute('tabindex', '0');
