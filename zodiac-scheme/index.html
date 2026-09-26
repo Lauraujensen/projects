@@ -176,42 +176,15 @@
 
     <header class="text-center mb-8 max-w-xl pt-4">
         <h1 class="text-3xl sm:text-4xl font-bold tracking-tight mb-2">Stjernetegn i mit liv</h1>
-        <p class="text-base sm:text-lg text-emerald-950/70 font-light">Familie, venner og kæledyr fordelt på stjernetegn</p>
+        <p class="text-base sm:text-lg text-emerald-950/70 font-light">Familie, venner, bekendte og kæledyr fordelt på stjernetegn</p>
     </header>
 
-    <section class="w-full max-w-6xl mb-8">
-        <div class="glass-panel rounded-2xl p-5 sm:p-6">
-            <h2 class="text-lg font-semibold mb-3 flex items-center gap-2 text-emerald-950">
-                Tilføj ny person
-            </h2>
-            <form id="addPersonForm" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                <input type="text" id="personName" placeholder="Navn (f.eks. Anna)" required
-                    class="px-4 py-2.5 rounded-xl border border-white/60 bg-white/40 focus:outline-none focus:ring-2 focus:ring-emerald-600/50 text-sm placeholder-emerald-900/50">
-                
-                <input type="text" id="personRelation" placeholder="Relation (f.eks. Veninde)" required
-                    class="px-4 py-2.5 rounded-xl border border-white/60 bg-white/40 focus:outline-none focus:ring-2 focus:ring-emerald-600/50 text-sm placeholder-emerald-900/50">
-                
-                <select id="personSign" required
-                    class="px-4 py-2.5 rounded-xl border border-white/60 bg-white/40 focus:outline-none focus:ring-2 focus:ring-emerald-600/50 text-sm text-emerald-950">
-                    <option value="" disabled selected>Vælg stjernetegn...</option>
-                </select>
-
-                <button type="submit" 
-                    style="background-color: #A0AD89;"
-                    class="px-5 py-2.5 hover:bg-[#8F9C78] text-white font-medium rounded-xl shadow-sm transition-all text-sm active:scale-95 border border-white/30">
-                    + Tilføj til skema
-                </button>
-            </form>
-        </div>
-    </section>
-
     <main class="w-full max-w-6xl space-y-8" id="elementSections">
-        <!-- Rækkerne for elementerne oprettes dynamisk via JS -->
+        <!-- Rækker og stjernetegn bygges automatisk herfra -->
     </main>
 
     <script>
-        // Standardliste over personer. Du kan nemt tilføje nye personer direkte her i koden!
-        const initialPersons = [
+        const persons = [
             { name: "Debora", relation: "Veninde", sign: "taurus" },
             { name: "Esben", relation: "Søsters kæreste", sign: "taurus" },
             { name: "Mathilde Skøt", relation: "Veninde", sign: "taurus" },
@@ -220,7 +193,7 @@
             { name: "Frida", relation: "Hund", sign: "virgo" },
             { name: "Poul", relation: "Onkel", sign: "virgo" },
             { name: "Smilla", relation: "Veninde", sign: "virgo" },
-            { name: "Nikolai", relation: "Kæreste", sign: "capricorn" },
+            { name: "Nikolai", relation: "Mand", sign: "capricorn" },
             { name: "Emma", relation: "Kusine", sign: "pisces" },
             { name: "Laura", relation: "Mig", sign: "cancer" },
             { name: "Thomas", relation: "Far", sign: "scorpio" },
@@ -233,27 +206,20 @@
             { name: "Jeppe", relation: "Bror", sign: "leo" },
             { name: "Rosa", relation: "Hund", sign: "leo" },
             { name: "Sanne", relation: "Veninde", sign: "leo" },
-            { name: "Per", relation: "Bedstefar", sign: "sagittarius" }
+            { name: "Per", relation: "Bedstefar", sign: "sagittarius" },
+            { name: "Frederikke", relation: "Efterskole-veninde", sign: "libra" },
+            { name: "Astrid Lea", relation: "Efterskole-veninde", sign: "aries" },
+            { name: "Rebecca", relation: "Studie-veninde", sign: "virgo" },
+            { name: "Noella", relation: "Studie-veninde", sign: "taurus" },
+            { name: "Mille", relation: "Studie-veninde", sign: "aries" },
+            { name: "Christel", relation: "Veninde", sign: "aries" },
+            { name: "Asger", relation: "Kærestes roomie", sign: "aries" },
+            { name: "Camilla", relation: "Svigerinde", sign: "capricorn" },
+            { name: "Charlotte", relation: "Svigermor", sign: "cancer" },
+            { name: "Jørgen", relation: "Svigerfar", sign: "aquarius" },
         ];
 
-        // Hent gemte personer fra localStorage, eller brug initialPersons hvis der ingen er gemt endnu
-        function getSavedPersons() {
-            const stored = localStorage.getItem('zodiac_persons');
-            if (stored) {
-                try {
-                    return JSON.parse(stored);
-                } catch (e) {
-                    return [...initialPersons];
-                }
-            }
-            return [...initialPersons];
-        }
-
-        function savePersons(personsList) {
-            localStorage.setItem('zodiac_persons', JSON.stringify(personsList));
-        }
-
-        // Grupperet datastruktur opdelt efter elementrækker
+        // Opbygning af element-grupper og stjernetegn
         const elementGroups = [
             {
                 element: "earth",
@@ -293,19 +259,8 @@
             }
         ];
 
-        // Udfyld select-dropdown med alle stjernetegn
-        const signSelect = document.getElementById('personSign');
-        elementGroups.forEach(group => {
-            group.signs.forEach(z => {
-                const option = document.createElement('option');
-                option.value = z.id;
-                option.textContent = z.daSign;
-                signSelect.appendChild(option);
-            });
-        });
-
-        function renderGrid() {
-            const persons = getSavedPersons();
+        // Funktion til at bygge hele visningen ud fra listen
+        function renderBoard() {
             const container = document.getElementById('elementSections');
             container.innerHTML = '';
 
@@ -322,7 +277,6 @@
                 grid.className = 'grid grid-cols-1 md:grid-cols-3 gap-6';
 
                 group.signs.forEach(zodiac => {
-                    // Filtrér personer tilhørende dette stjernetegn
                     const zodiacPersons = persons
                         .filter(p => p.sign === zodiac.id)
                         .sort((a, b) => a.name.localeCompare(b.name, 'da'));
@@ -374,33 +328,8 @@
             });
         }
 
-        document.getElementById('addPersonForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const nameInput = document.getElementById('personName');
-            const relationInput = document.getElementById('personRelation');
-            const signSelect = document.getElementById('personSign');
-
-            const name = nameInput.value.trim();
-            const relation = relationInput.value.trim();
-            const sign = signSelect.value;
-
-            if (!name || !relation || !sign) return;
-
-            // Hent den nuværende liste, tilføj den nye og gem igen
-            const currentPersons = getSavedPersons();
-            currentPersons.push({ name, relation, sign });
-            savePersons(currentPersons);
-
-            renderGrid();
-
-            nameInput.value = '';
-            relationInput.value = '';
-            signSelect.selectedIndex = 0;
-        });
-
-        // Indlæs skemaet første gang
-        renderGrid();
+        // Vis skemaet ved indlæsning
+        renderBoard();
     </script>
 </body>
 </html>
