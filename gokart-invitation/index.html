@@ -22,9 +22,16 @@
         color: var(--text-main);
         display: flex;
         justify-content: center;
-        padding: 40px 20px;
+        padding: 20px 12px;
         min-height: 100vh;
         line-height: 1.5;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    @media (min-width: 600px) {
+        body {
+            padding: 40px 20px;
+        }
     }
 
     .container {
@@ -35,23 +42,25 @@
     /* Hero / Header */
     header {
         text-align: center;
-        margin-bottom: 30px;
+        margin-bottom: 24px;
         border-bottom: 3px solid var(--accent-red);
-        padding-bottom: 25px;
+        padding-bottom: 20px;
     }
 
     h1 {
-        font-size: 2.5rem;
+        font-size: 1.8rem;
         font-weight: 800;
         text-transform: uppercase;
-        letter-spacing: 1px;
+        letter-spacing: 0.5px;
+        line-height: 1.2;
     }
 
     .subtitle {
-        font-size: 1.3rem;
+        font-size: 1.1rem;
         color: var(--accent-red);
         font-weight: 700;
-        margin-bottom: 12px;
+        margin-top: 4px;
+        margin-bottom: 10px;
         text-transform: uppercase;
     }
 
@@ -59,6 +68,22 @@
         font-size: 0.85rem;
         color: var(--text-muted);
         font-weight: 300;
+        line-height: 1.4;
+    }
+
+    @media (min-width: 600px) {
+        h1 {
+            font-size: 2.5rem;
+            letter-spacing: 1px;
+        }
+        .subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+        header {
+            margin-bottom: 30px;
+            padding-bottom: 25px;
+        }
     }
 
     /* Kort / Boks styling */
@@ -66,14 +91,21 @@
         background-color: var(--card-bg);
         border: 1px solid var(--border-color);
         border-radius: 8px;
-        padding: 24px;
-        margin-bottom: 24px;
+        padding: 18px 16px;
+        margin-bottom: 20px;
+    }
+
+    @media (min-width: 600px) {
+        .card {
+            padding: 24px;
+            margin-bottom: 24px;
+        }
     }
 
     .card h2 {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
         font-weight: 700;
-        margin-bottom: 15px;
+        margin-bottom: 12px;
         color: var(--text-main);
         display: flex;
         align-items: center;
@@ -82,14 +114,14 @@
 
     /* Uden baggrund til inviterede personer */
     .invited-section {
-        padding: 0 4px;
-        margin-bottom: 24px;
+        padding: 0 2px;
+        margin-bottom: 20px;
     }
 
     .invited-section h2 {
-        font-size: 1rem;
+        font-size: 0.95rem;
         font-weight: 700;
-        margin-bottom: 10px;
+        margin-bottom: 8px;
         color: var(--text-main);
         display: flex;
         align-items: center;
@@ -100,13 +132,14 @@
     .form-layout {
         display: grid;
         grid-template-columns: 1fr;
-        gap: 24px;
+        gap: 20px;
     }
 
     @media (min-width: 850px) {
         .form-layout {
             grid-template-columns: 1fr 1.2fr;
             align-items: start;
+            gap: 24px;
         }
     }
 
@@ -121,7 +154,13 @@
         align-items: flex-start;
         padding: 10px 0;
         border-bottom: 1px solid var(--border-color);
-        font-size: 0.95rem;
+        font-size: 0.9rem;
+    }
+
+    @media (min-width: 600px) {
+        .price-item {
+            font-size: 0.95rem;
+        }
     }
 
     .price-item:last-child {
@@ -133,10 +172,11 @@
         display: flex;
         flex-direction: column;
         align-items: flex-end;
+        margin-left: 10px;
     }
 
     .sub-discount {
-        font-size: 0.78rem;
+        font-size: 0.75rem;
         color: var(--text-muted);
         font-weight: 400;
         margin-top: 2px;
@@ -150,14 +190,20 @@
         color: var(--text-main);
         display: flex;
         justify-content: space-between;
-        font-size: 1.05rem;
+        font-size: 1rem;
+    }
+
+    @media (min-width: 600px) {
+        .price-total {
+            font-size: 1.05rem;
+        }
     }
 
     .price-note {
-        margin-top: 15px;
-        font-size: 0.85rem;
+        margin-top: 12px;
+        font-size: 0.82rem;
         color: var(--text-muted);
-        line-height: 1.4;
+        line-height: 1.45;
     }
 
     /* Kompakt visning af Inviterede personer */
@@ -171,7 +217,7 @@
         background-color: var(--card-bg);
         border: 1px solid var(--border-color);
         border-radius: 4px;
-        padding: 5px 10px;
+        padding: 6px 10px;
         font-size: 0.8rem;
         font-weight: 500;
         color: var(--text-main);
@@ -188,14 +234,14 @@
 
     /* Formular styling */
     .form-group {
-        margin-bottom: 20px;
+        margin-bottom: 16px;
     }
 
     label.section-label {
         display: block;
         font-weight: 600;
         margin-bottom: 10px;
-        font-size: 0.95rem;
+        font-size: 0.9rem;
     }
 
     input[type="text"] {
@@ -215,7 +261,7 @@
     }
 
     /* Radio Buttons & Checkbox Knapper */
-    .radio-group, .checkbox-grid {
+    .radio-group {
         display: flex;
         gap: 10px;
     }
@@ -223,6 +269,7 @@
     .checkbox-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
     }
 
     .radio-btn, .time-btn {
@@ -234,19 +281,28 @@
         position: absolute;
         opacity: 0;
         cursor: pointer;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 2;
     }
 
     .radio-btn span, .time-btn span {
-        display: block;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         text-align: center;
         padding: 12px 8px;
+        min-height: 44px;
         background-color: var(--bg-color);
         border: 1px solid var(--border-color);
         border-radius: 6px;
         cursor: pointer;
         font-weight: 600;
-        font-size: 0.9rem;
+        font-size: 0.88rem;
         transition: all 0.2s ease;
+        user-select: none;
     }
 
     .radio-btn input:checked + span, .time-btn input:checked + span {
@@ -259,8 +315,8 @@
     .calendar-header {
         text-align: center;
         font-weight: 700;
-        font-size: 1.1rem;
-        margin-bottom: 15px;
+        font-size: 1.05rem;
+        margin-bottom: 12px;
         color: var(--accent-red);
         text-transform: uppercase;
         letter-spacing: 0.5px;
@@ -271,7 +327,7 @@
         grid-template-columns: repeat(7, 1fr);
         text-align: center;
         font-weight: 600;
-        font-size: 0.8rem;
+        font-size: 0.75rem;
         color: var(--text-muted);
         margin-bottom: 8px;
     }
@@ -279,11 +335,18 @@
     .calendar-month-grid {
         display: grid;
         grid-template-columns: repeat(7, 1fr);
-        gap: 6px;
+        gap: 4px;
+    }
+
+    @media (min-width: 400px) {
+        .calendar-month-grid {
+            gap: 6px;
+        }
     }
 
     .cal-day {
         position: relative;
+        width: 100%;
         aspect-ratio: 1;
     }
 
@@ -297,6 +360,9 @@
         cursor: pointer;
         width: 100%;
         height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 2;
     }
 
     .cal-day span {
@@ -309,9 +375,16 @@
         border: 1px solid var(--border-color);
         border-radius: 6px;
         cursor: pointer;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         font-weight: 600;
         transition: all 0.2s ease;
+        user-select: none;
+    }
+
+    @media (min-width: 600px) {
+        .cal-day span {
+            font-size: 0.9rem;
+        }
     }
 
     .cal-day input:checked + span {
@@ -331,7 +404,7 @@
         background-color: var(--accent-red);
         color: #fff;
         border: none;
-        padding: 15px;
+        padding: 16px;
         border-radius: 6px;
         font-size: 1rem;
         font-weight: 700;
@@ -340,6 +413,7 @@
         cursor: pointer;
         transition: background-color 0.2s ease;
         margin-top: 10px;
+        min-height: 50px;
     }
 
     button[type="submit"]:hover {
@@ -355,197 +429,168 @@
 </style>
 
 
-<div class="container">
-    
-    <!-- Overskrift & Adresse -->
-    <header>
-        <h1>Du er inviteret</h1>
-        <div class="subtitle">Til at køre GoKart</div>
-        <p class="address">Hasselager Centervej 30, Viby J | Bus 1A, Bus 200 og letbanen kører derud</p>
-    </header>
+<!-- Overskrift & Adresse -->
+<header>
+    <h1>Du er inviteret</h1>
+    <div class="subtitle">Til at køre GoKart</div>
+    <p class="address">Hasselager Centervej 30, Viby J | Bus 1A, Bus 200 og letbanen kører derud</p>
+</header>
 
-    <!-- Inviterede personer (Uden boks-baggrund) -->
-    <div class="invited-section">
-        <h2>Inviterede personer</h2>
-        <div class="invited-grid">
-            <div class="invited-tag">Nikolai</div>
-            <div class="invited-tag">Laura</div>
-            <div class="invited-tag">Asger</div>
-            <div class="invited-tag">Josefine</div>
-            <div class="invited-tag">Oliver</div>
-            <div class="invited-tag">Louise</div>
-            <div class="invited-tag">Martin</div>
-            <div class="invited-tag">Karoline</div>
-        </div>
+<!-- Inviterede personer (Uden boks-baggrund) -->
+<div class="invited-section">
+    <h2>Inviterede personer</h2>
+    <div class="invited-grid">
+        <div class="invited-tag">Nikolai</div>
+        <div class="invited-tag">Laura</div>
+        <div class="invited-tag">Asger</div>
+        <div class="invited-tag">Josefine</div>
+        <div class="invited-tag">Oliver</div>
+        <div class="invited-tag">Louise</div>
+        <div class="invited-tag">Martin</div>
+        <div class="invited-tag">Karoline</div>
     </div>
-
-    <!-- Pris Boks -->
-    <div class="card">
-        <h2>Prisoversigt</h2>
-        <ul class="price-list">
-            <li class="price-item">
-                <span>GoKart (20 minutter)</span>
-                <div class="price-val">
-                    <span>ca. 224 kr.</span>
-                    <span class="sub-discount">(Inkl. 20% rabat)</span>
-                </div>
-            </li>
-            <li class="price-item">
-                <span>Hue og handsker (påkrævet)</span>
-                <div class="price-val">
-                    <span>ca. 39 kr.</span>
-                    <span class="sub-discount">(Kan måske skaffes gratis af Laura)</span>
-                </div>
-            </li>
-        </ul>
-        <div class="price-total">
-            <span>Forventet pris pr. person:</span>
-            <span>ca. 215,5 kr.</span>
-        </div>
-        <p class="price-note">
-            Laura kan køre gratis og resten kan få 20% rabat – vi <strong>SKAL</strong> dog køre før kl. 16:00. Vi splitter alle den samlede pris til sidst, så prisen bliver ens for alle.
-        </p>
-    </div>
-
-    
-
-    <!-- Formular -->
-    <form action="https://formspree.io/f/mdekwrqb" method="POST">
-        
-        <div class="form-layout">
-            
-            <!-- Venstre kolonne: Navn, Deltagelse & Tidspunkter -->
-            <div class="left-column">
-                <div class="card">
-                    <h2>Dit Navn</h2>
-                    <div class="form-group">
-                        <input type="text" name="navn" placeholder="Indtast dit navn" required>
-                    </div>
-
-                    <label class="section-label">Har du lyst til at deltage?</label>
-                    <div class="radio-group form-group">
-                        <label class="radio-btn">
-                            <input type="radio" name="deltager" value="Ja" id="deltag-ja" required>
-                            <span>Ja, da!</span>
-                        </label>
-                        <label class="radio-btn">
-                            <input type="radio" name="deltager" value="Nej" id="deltag-nej">
-                            <span>Desværre</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="card hidden" id="time-card">
-                    <h2>Hvornår på dagen kan du?</h2>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">Vælg de tidspunkter, der passer dig bedst:</p>
-                    
-                    <div class="checkbox-grid">
-                        <label class="time-btn">
-                            <input type="checkbox" name="tidspunkt[]" value="Formiddag">
-                            <span>Formiddag</span>
-                        </label>
-                        <label class="time-btn">
-                            <input type="checkbox" name="tidspunkt[]" value="Middag">
-                            <span>Middag</span>
-                        </label>
-                        <label class="time-btn">
-                            <input type="checkbox" name="tidspunkt[]" value="Eftermiddag">
-                            <span>Eftermiddag</span>
-                        </label>
-                        <label class="time-btn">
-                            <input type="checkbox" name="tidspunkt[]" value="Aften">
-                            <span>Alt passer mig</span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Højre kolonne: Fuld Månedskalender -->
-            <div class="right-column hidden" id="calendar-card">
-                <div class="card">
-                    <h2>Hvilke datoer kan du?</h2>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">Markér alle de datoer i måneden, hvor du kan:</p>
-                    
-                    <div class="calendar-header">Oktober 2026</div>
-                    
-                    <div class="calendar-weekdays">
-                        <div>Man</div>
-                        <div>Tir</div>
-                        <div>Ons</div>
-                        <div>Tor</div>
-                        <div>Fre</div>
-                        <div>Lør</div>
-                        <div>Søn</div>
-                    </div>
-
-                    <div class="calendar-month-grid">
-                        <!-- Tomme felter for at starte torsdag d. 1. -->
-                        <div class="cal-day empty"></div>
-                        <div class="cal-day empty"></div>
-                        <div class="cal-day empty"></div>
-
-                        <!-- Datoer 1 til 31 -->
-                        <label class="cal-day"><input type="checkbox" name="datoer[]" value="1. Okt"><span>1</span></label>
-                        <label class="cal-day"><input type="checkbox" name="datoer[]" value="2. Okt"><span>2</span></label>
-                        <label class="cal-day"><input type="checkbox" name="datoer[]" value="3. Okt"><span>3</span></label>
-                        <label class="cal-day"><input type="checkbox" name="datoer[]" value="4. Okt"><span>4</span></label>
-                        <label class="cal-day"><input type="checkbox" name="datoer[]" value="5. Okt"><span>5</span></label>
-                        <label class="cal-day"><input type="checkbox" name="datoer[]" value="6. Okt"><span>6</span></label>
-                        <label class="cal-day"><input type="checkbox" name="datoer[]" value="7. Okt"><span>7</span></label>
-                        <label class="cal-day"><input type="checkbox" name="datoer[]" value="8. Okt"><span>8</span></label>
-                        <label class="cal-day"><input type="checkbox" name="datoer[]" value="9. Okt"><span>9</span></label>
-                        <label class="cal-day"><input type="checkbox" name="datoer[]" value="10. Okt"><span>10</span></label>
-                        <label class="cal-day"><input type="checkbox" name="datoer[]" value="11. Okt"><span>11</span></label>
-                        <label class="cal-day"><input type="checkbox" name="datoer[]" value="12. Okt"><span>12</span></label>
-                        <label class="cal-day"><input type="checkbox" name="datoer[]" value="13. Okt"><span>13</span></label>
-                        <label class="cal-day"><input type="checkbox" name="datoer[]" value="14. Okt"><span>14</span></label>
-                        <label class="cal-day"><input type="checkbox" name="datoer[]" value="15. Okt"><span>15</span></label>
-                        <label class="cal-day"><input type="checkbox" name="datoer[]" value="16. Okt"><span>16</span></label>
-                        <label class="cal-day"><input type="checkbox" name="datoer[]" value="17. Okt"><span>17</span></label>
-                        <label class="cal-day"><input type="checkbox" name="datoer[]" value="18. Okt"><span>18</span></label>
-                        <label class="cal-day"><input type="checkbox" name="datoer[]" value="19. Okt"><span>19</span></label>
-                        <label class="cal-day"><input type="checkbox" name="datoer[]" value="20. Okt"><span>20</span></label>
-                        <label class="cal-day"><input type="checkbox" name="datoer[]" value="21. Okt"><span>21</span></label>
-                        <label class="cal-day"><input type="checkbox" name="datoer[]" value="22. Okt"><span>22</span></label>
-                        <label class="cal-day"><input type="checkbox" name="datoer[]" value="23. Okt"><span>23</span></label>
-                        <label class="cal-day"><input type="checkbox" name="datoer[]" value="24. Okt"><span>24</span></label>
-                        <label class="cal-day"><input type="checkbox" name="datoer[]" value="25. Okt"><span>25</span></label>
-                        <label class="cal-day"><input type="checkbox" name="datoer[]" value="26. Okt"><span>26</span></label>
-                        <label class="cal-day"><input type="checkbox" name="datoer[]" value="27. Okt"><span>27</span></label>
-                        <label class="cal-day"><input type="checkbox" name="datoer[]" value="28. Okt"><span>28</span></label>
-                        <label class="cal-day"><input type="checkbox" name="datoer[]" value="29. Okt"><span>29</span></label>
-                        <label class="cal-day"><input type="checkbox" name="datoer[]" value="30. Okt"><span>30</span></label>
-                        <label class="cal-day"><input type="checkbox" name="datoer[]" value="31. Okt"><span>31</span></label>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <button type="submit" id="submit-btn" class="hidden">Send Svar</button>
-    </form>
-
 </div>
 
-<script>
-    const radioJa = document.getElementById('deltag-ja');
-    const radioNej = document.getElementById('deltag-nej');
-    const timeCard = document.getElementById('time-card');
-    const calendarCard = document.getElementById('calendar-card');
-    const submitBtn = document.getElementById('submit-btn');
+<!-- Pris Boks -->
+<div class="card">
+    <h2>Prisoversigt</h2>
+    <ul class="price-list">
+        <li class="price-item">
+            <span>GoKart (20 minutter)</span>
+            <div class="price-val">
+                <span>ca. 224 kr.</span>
+                <span class="sub-discount">(Inkl. 20% rabat)</span>
+            </div>
+        </li>
+        <li class="price-item">
+            <span>Hue og handsker (påkrævet)</span>
+            <div class="price-val">
+                <span>ca. 39 kr.</span>
+                <span class="sub-discount">(Kan måske skaffes gratis af Laura)</span>
+            </div>
+        </li>
+    </ul>
+    <div class="price-total">
+        <span>Forventet pris pr. person:</span>
+        <span>ca. 215,5 kr.</span>
+    </div>
+    <p class="price-note">
+        Laura kan køre gratis og resten kan få 20% rabat – vi <strong>SKAL</strong> dog køre før kl. 16:00. Vi splitter alle den samlede pris til sidst, så prisen bliver ens for alle.
+    </p>
+</div>
 
-    function toggleSections() {
-        if (radioJa.checked) {
-            timeCard.classList.remove('hidden');
-            calendarCard.classList.remove('hidden');
-            submitBtn.classList.remove('hidden');
-        } else if (radioNej.checked) {
-            timeCard.classList.add('hidden');
-            calendarCard.classList.add('hidden');
-            submitBtn.classList.remove('hidden');
-        }
-    }
+<!-- Formular -->
+<form action="https://formspree.io/f/mdekwrqb" method="POST">
+    
+    <div class="form-layout">
+        
+        <!-- Venstre kolonne: Navn, Deltagelse & Tidspunkter -->
+        <div class="left-column">
+            <div class="card">
+                <h2>Dit Navn</h2>
+                <div class="form-group">
+                    <input type="text" name="navn" placeholder="Indtast dit navn" required>
+                </div>
 
-    radioJa.addEventListener('change', toggleSections);
-    radioNej.addEventListener('change', toggleSections);
-</script>
+                <label class="section-label">Har du lyst til at deltage?</label>
+                <div class="radio-group form-group">
+                    <label class="radio-btn">
+                        <input type="radio" name="deltager" value="Ja" id="deltag-ja" required>
+                        <span>Ja, da!</span>
+                    </label>
+                    <label class="radio-btn">
+                        <input type="radio" name="deltager" value="Nej" id="deltag-nej">
+                        <span>Desværre</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="card hidden" id="time-card">
+                <h2>Hvornår på dagen kan du?</h2>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">Vælg de tidspunkter, der passer dig bedst:</p>
+                
+                <div class="checkbox-grid">
+                    <label class="time-btn">
+                        <input type="checkbox" name="tidspunkt[]" value="Formiddag">
+                        <span>Formiddag</span>
+                    </label>
+                    <label class="time-btn">
+                        <input type="checkbox" name="tidspunkt[]" value="Middag">
+                        <span>Middag</span>
+                    </label>
+                    <label class="time-btn">
+                        <input type="checkbox" name="tidspunkt[]" value="Eftermiddag">
+                        <span>Eftermiddag</span>
+                    </label>
+                    <label class="time-btn">
+                        <input type="checkbox" name="tidspunkt[]" value="Aften">
+                        <span>Alt passer mig</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Højre kolonne: Fuld Månedskalender -->
+        <div class="right-column hidden" id="calendar-card">
+            <div class="card">
+                <h2>Hvilke datoer kan du?</h2>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">Markér alle de datoer i måneden, hvor du kan:</p>
+                
+                <div class="calendar-header">Oktober 2026</div>
+                
+                <div class="calendar-weekdays">
+                    <div>Man</div>
+                    <div>Tir</div>
+                    <div>Ons</div>
+                    <div>Tor</div>
+                    <div>Fre</div>
+                    <div>Lør</div>
+                    <div>Søn</div>
+                </div>
+
+                <div class="calendar-month-grid">
+                    <!-- Tomme felter for at starte torsdag d. 1. -->
+                    <div class="cal-day empty"></div>
+                    <div class="cal-day empty"></div>
+                    <div class="cal-day empty"></div>
+
+                    <!-- Datoer 1 til 31 -->
+                    <label class="cal-day"><input type="checkbox" name="datoer[]" value="1. Okt"><span>1</span></label>
+                    <label class="cal-day"><input type="checkbox" name="datoer[]" value="2. Okt"><span>2</span></label>
+                    <label class="cal-day"><input type="checkbox" name="datoer[]" value="3. Okt"><span>3</span></label>
+                    <label class="cal-day"><input type="checkbox" name="datoer[]" value="4. Okt"><span>4</span></label>
+                    <label class="cal-day"><input type="checkbox" name="datoer[]" value="5. Okt"><span>5</span></label>
+                    <label class="cal-day"><input type="checkbox" name="datoer[]" value="6. Okt"><span>6</span></label>
+                    <label class="cal-day"><input type="checkbox" name="datoer[]" value="7. Okt"><span>7</span></label>
+                    <label class="cal-day"><input type="checkbox" name="datoer[]" value="8. Okt"><span>8</span></label>
+                    <label class="cal-day"><input type="checkbox" name="datoer[]" value="9. Okt"><span>9</span></label>
+                    <label class="cal-day"><input type="checkbox" name="datoer[]" value="10. Okt"><span>10</span></label>
+                    <label class="cal-day"><input type="checkbox" name="datoer[]" value="11. Okt"><span>11</span></label>
+                    <label class="cal-day"><input type="checkbox" name="datoer[]" value="12. Okt"><span>12</span></label>
+                    <label class="cal-day"><input type="checkbox" name="datoer[]" value="13. Okt"><span>13</span></label>
+                    <label class="cal-day"><input type="checkbox" name="datoer[]" value="14. Okt"><span>14</span></label>
+                    <label class="cal-day"><input type="checkbox" name="datoer[]" value="15. Okt"><span>15</span></label>
+                    <label class="cal-day"><input type="checkbox" name="datoer[]" value="16. Okt"><span>16</span></label>
+                    <label class="cal-day"><input type="checkbox" name="datoer[]" value="17. Okt"><span>17</span></label>
+                    <label class="cal-day"><input type="checkbox" name="datoer[]" value="18. Okt"><span>18</span></label>
+                    <label class="cal-day"><input type="checkbox" name="datoer[]" value="19. Okt"><span>19</span></label>
+                    <label class="cal-day"><input type="checkbox" name="datoer[]" value="20. Okt"><span>20</span></label>
+                    <label class="cal-day"><input type="checkbox" name="datoer[]" value="21. Okt"><span>21</span></label>
+                    <label class="cal-day"><input type="checkbox" name="datoer[]" value="22. Okt"><span>22</span></label>
+                    <label class="cal-day"><input type="checkbox" name="datoer[]" value="23. Okt"><span>23</span></label>
+                    <label class="cal-day"><input type="checkbox" name="datoer[]" value="24. Okt"><span>24</span></label>
+                    <label class="cal-day"><input type="checkbox" name="datoer[]" value="25. Okt"><span>25</span></label>
+                    <label class="cal-day"><input type="checkbox" name="datoer[]" value="26. Okt"><span>26</span></label>
+                    <label class="cal-day"><input type="checkbox" name="datoer[]" value="27. Okt"><span>27</span></label>
+                    <label class="cal-day"><input type="checkbox" name="datoer[]" value="28. Okt"><span>28</span></label>
+                    <label class="cal-day"><input type="checkbox" name="datoer[]" value="29. Okt"><span>29</span></label>
+                    <label class="cal-day"><input type="checkbox" name="datoer[]" value="30. Okt"><span>30</span></label>
+                    <label class="cal-day"><input type="checkbox" name="datoer[]" value="31. Okt"><span>31</span></label>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <button type="submit" id="submit-btn" class="hidden">Send Svar</button>
+</form>
