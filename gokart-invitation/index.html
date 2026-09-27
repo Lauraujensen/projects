@@ -1,359 +1,409 @@
-<style>
-    /* Racehall-inspirerede farver (Sort, Mørkegrå, Hvid og Race-Rød) */
-    :root {
-        --bg-color: #0f1115;
-        --card-bg: #1a1d24;
-        --accent-red: #e63946;
-        --accent-red-hover: #c1272d;
-        --text-main: #ffffff;
-        --text-muted: #a0a5b5;
-        --border-color: #2a2e39;
-    }
-
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-    }
-
-    body {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        background-color: var(--bg-color);
-        color: var(--text-main);
-        display: flex;
-        justify-content: center;
-        padding: 40px 20px;
-        min-height: 100vh;
-        line-height: 1.5;
-    }
-
-    .container {
-        max-width: 1100px;
-        width: 100%;
-    }
-
-    /* Hero / Header */
-    header {
-        text-align: center;
-        margin-bottom: 30px;
-        border-bottom: 3px solid var(--accent-red);
-        padding-bottom: 25px;
-    }
-
-    h1 {
-        font-size: 2.5rem;
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
-
-    .subtitle {
-        font-size: 1.3rem;
-        color: var(--accent-red);
-        font-weight: 700;
-        margin-bottom: 12px;
-        text-transform: uppercase;
-    }
-
-    .address {
-        font-size: 0.85rem;
-        color: var(--text-muted);
-        font-weight: 300;
-    }
-
-    /* Kort / Boks styling */
-    .card {
-        background-color: var(--card-bg);
-        border: 1px solid var(--border-color);
-        border-radius: 8px;
-        padding: 24px;
-        margin-bottom: 24px;
-    }
-
-    .card h2 {
-        font-size: 1.2rem;
-        font-weight: 700;
-        margin-bottom: 15px;
-        color: var(--text-main);
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    /* Uden baggrund til inviterede personer */
-    .invited-section {
-        padding: 0 4px;
-        margin-bottom: 24px;
-    }
-
-    .invited-section h2 {
-        font-size: 1rem;
-        font-weight: 700;
-        margin-bottom: 10px;
-        color: var(--text-main);
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    /* Grid layout for computer/desktop */
-    .form-layout {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 24px;
-    }
-
-    @media (min-width: 850px) {
-        .form-layout {
-            grid-template-columns: 1fr 1.2fr;
-            align-items: start;
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitation til GoKart</title>
+    <style>
+        /* Racehall-inspirerede farver (Sort, Mørkegrå, Hvid og Race-Rød) */
+        :root {
+            --bg-color: #0f1115;
+            --card-bg: #1a1d24;
+            --accent-red: #e63946;
+            --accent-red-hover: #c1272d;
+            --text-main: #ffffff;
+            --text-muted: #a0a5b5;
+            --border-color: #2a2e39;
         }
-    }
 
-    /* Pris Boks */
-    .price-list {
-        list-style: none;
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    .price-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        padding: 10px 0;
-        border-bottom: 1px solid var(--border-color);
-        font-size: 0.95rem;
-    }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            padding: 20px 12px;
+            min-height: 100vh;
+            line-height: 1.5;
+        }
 
-    .price-item:last-child {
-        border-bottom: none;
-    }
+        .container {
+            max-width: 1100px;
+            width: 100%;
+        }
 
-    .price-val {
-        text-align: right;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-    }
+        /* Hero / Header */
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 3px solid var(--accent-red);
+            padding-bottom: 20px;
+        }
 
-    .sub-discount {
-        font-size: 0.78rem;
-        color: var(--text-muted);
-        font-weight: 400;
-        margin-top: 2px;
-    }
+        h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-    .price-total {
-        margin-top: 15px;
-        padding-top: 12px;
-        border-top: 2px dashed var(--accent-red);
-        font-weight: 700;
-        color: var(--text-main);
-        display: flex;
-        justify-content: space-between;
-        font-size: 1.05rem;
-    }
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--accent-red);
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
 
-    .price-note {
-        margin-top: 15px;
-        font-size: 0.85rem;
-        color: var(--text-muted);
-        line-height: 1.4;
-    }
+        .address {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 300;
+            word-break: break-word;
+        }
 
-    /* Kompakt visning af Inviterede personer */
-    .invited-grid {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 6px;
-    }
+        /* Kort / Boks styling */
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
 
-    .invited-tag {
-        background-color: var(--card-bg);
-        border: 1px solid var(--border-color);
-        border-radius: 4px;
-        padding: 5px 10px;
-        font-size: 0.8rem;
-        font-weight: 500;
-        color: var(--text-main);
-        display: flex;
-        align-items: center;
-        gap: 5px;
-    }
+        .card h2 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-    .invited-tag::before {
-        content: "•";
-        color: var(--accent-red);
-        font-size: 1rem;
-    }
+        /* Uden baggrund til inviterede personer */
+        .invited-section {
+            padding: 0 4px;
+            margin-bottom: 20px;
+        }
 
-    /* Formular styling */
-    .form-group {
-        margin-bottom: 20px;
-    }
+        .invited-section h2 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-    label.section-label {
-        display: block;
-        font-weight: 600;
-        margin-bottom: 10px;
-        font-size: 0.95rem;
-    }
+        /* Grid layout for computer/desktop */
+        .form-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
 
-    input[type="text"] {
-        width: 100%;
-        padding: 12px;
-        background-color: var(--bg-color);
-        border: 1px solid var(--border-color);
-        border-radius: 6px;
-        color: #fff;
-        font-size: 1rem;
-        font-family: inherit;
-    }
+        /* Pris Boks */
+        .price-list {
+            list-style: none;
+        }
 
-    input[type="text"]:focus {
-        outline: none;
-        border-color: var(--accent-red);
-    }
+        .price-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.9rem;
+            gap: 10px;
+        }
 
-    /* Radio Buttons & Checkbox Knapper */
-    .radio-group, .checkbox-grid {
-        display: flex;
-        gap: 10px;
-    }
+        .price-item:last-child {
+            border-bottom: none;
+        }
 
-    .checkbox-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-    }
+        .price-val {
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            min-width: 100px;
+        }
 
-    .radio-btn, .time-btn {
-        flex: 1;
-        position: relative;
-    }
+        .sub-discount {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 400;
+            margin-top: 2px;
+        }
 
-    .radio-btn input, .time-btn input {
-        position: absolute;
-        opacity: 0;
-        cursor: pointer;
-    }
+        .price-total {
+            margin-top: 15px;
+            padding-top: 12px;
+            border-top: 2px dashed var(--accent-red);
+            font-weight: 700;
+            color: var(--text-main);
+            display: flex;
+            justify-content: space-between;
+            font-size: 1rem;
+        }
 
-    .radio-btn span, .time-btn span {
-        display: block;
-        text-align: center;
-        padding: 12px 8px;
-        background-color: var(--bg-color);
-        border: 1px solid var(--border-color);
-        border-radius: 6px;
-        cursor: pointer;
-        font-weight: 600;
-        font-size: 0.9rem;
-        transition: all 0.2s ease;
-    }
+        .price-note {
+            margin-top: 12px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
 
-    .radio-btn input:checked + span, .time-btn input:checked + span {
-        background-color: var(--accent-red);
-        border-color: var(--accent-red);
-        color: #fff;
-    }
+        /* Kompakt visning af Inviterede personer */
+        .invited-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
 
-    /* Månedskalender Styling */
-    .calendar-header {
-        text-align: center;
-        font-weight: 700;
-        font-size: 1.1rem;
-        margin-bottom: 15px;
-        color: var(--accent-red);
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
+        .invited-tag {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 6px 10px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
 
-    .calendar-weekdays {
-        display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        text-align: center;
-        font-weight: 600;
-        font-size: 0.8rem;
-        color: var(--text-muted);
-        margin-bottom: 8px;
-    }
+        .invited-tag::before {
+            content: "•";
+            color: var(--accent-red);
+            font-size: 1rem;
+        }
 
-    .calendar-month-grid {
-        display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        gap: 6px;
-    }
+        /* Formular styling */
+        .form-group {
+            margin-bottom: 16px;
+        }
 
-    .cal-day {
-        position: relative;
-        aspect-ratio: 1;
-    }
+        label.section-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
 
-    .cal-day.empty {
-        visibility: hidden;
-    }
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: #fff;
+            font-size: 1rem;
+            font-family: inherit;
+        }
 
-    .cal-day input {
-        position: absolute;
-        opacity: 0;
-        cursor: pointer;
-        width: 100%;
-        height: 100%;
-    }
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--accent-red);
+        }
 
-    .cal-day span {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        height: 100%;
-        background-color: var(--bg-color);
-        border: 1px solid var(--border-color);
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 0.9rem;
-        font-weight: 600;
-        transition: all 0.2s ease;
-    }
+        /* Radio Buttons & Checkbox Knapper */
+        .radio-group {
+            display: flex;
+            gap: 10px;
+        }
 
-    .cal-day input:checked + span {
-        border-color: var(--accent-red);
-        background-color: var(--accent-red);
-        color: #fff;
-    }
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
 
-    /* Dynamisk visning/skjulning */
-    .hidden {
-        display: none !important;
-    }
+        .radio-btn, .time-btn {
+            flex: 1;
+            position: relative;
+        }
 
-    /* Indsend Knap */
-    button[type="submit"] {
-        width: 100%;
-        background-color: var(--accent-red);
-        color: #fff;
-        border: none;
-        padding: 15px;
-        border-radius: 6px;
-        font-size: 1rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        cursor: pointer;
-        transition: background-color 0.2s ease;
-        margin-top: 10px;
-    }
+        .radio-btn input, .time-btn input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 2;
+        }
 
-    button[type="submit"]:hover {
-        background-color: var(--accent-red-hover);
-    }
+        .radio-btn span, .time-btn span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-height: 44px;
+            padding: 8px;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
 
-    footer {
-        text-align: center;
-        margin-top: 30px;
-        font-size: 0.8rem;
-        color: var(--text-muted);
-    }
-</style>
+        .radio-btn input:checked + span, .time-btn input:checked + span {
+            background-color: var(--accent-red);
+            border-color: var(--accent-red);
+            color: #fff;
+        }
 
+        /* Månedskalender Styling */
+        .calendar-header {
+            text-align: center;
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 12px;
+            color: var(--accent-red);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .calendar-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .calendar-month-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+
+        .cal-day {
+            position: relative;
+            aspect-ratio: 1;
+        }
+
+        .cal-day.empty {
+            visibility: hidden;
+        }
+
+        .cal-day input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 2;
+        }
+
+        .cal-day span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .cal-day input:checked + span {
+            border-color: var(--accent-red);
+            background-color: var(--accent-red);
+            color: #fff;
+        }
+
+        /* Dynamisk visning/skjulning */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Indsend Knap */
+        button[type="submit"] {
+            width: 100%;
+            background-color: var(--accent-red);
+            color: #fff;
+            border: none;
+            padding: 16px;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            margin-top: 10px;
+            min-height: 48px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: var(--accent-red-hover);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Responsive Tilpasninger (Desktop / Tablet) */
+        @media (min-width: 600px) {
+            body {
+                padding: 40px 20px;
+            }
+            .card {
+                padding: 24px;
+            }
+            h1 {
+                font-size: 2.5rem;
+            }
+            .subtitle {
+                font-size: 1.3rem;
+            }
+            .calendar-month-grid {
+                gap: 6px;
+            }
+            .cal-day span {
+                font-size: 0.9rem;
+            }
+            .radio-btn span, .time-btn span {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (min-width: 850px) {
+            .form-layout {
+                grid-template-columns: 1fr 1.2fr;
+                align-items: start;
+            }
+        }
+    </style>
+</head>
+<body>
 
 <div class="container">
     
@@ -406,8 +456,6 @@
             Laura kan køre gratis og resten kan få 20% rabat – vi <strong>SKAL</strong> dog køre før kl. 16:00. Vi splitter alle den samlede pris til sidst, så prisen bliver ens for alle.
         </p>
     </div>
-
-    
 
     <!-- Formular -->
     <form action="https://formspree.io/f/mdekwrqb" method="POST">
@@ -549,3 +597,6 @@
     radioJa.addEventListener('change', toggleSections);
     radioNej.addEventListener('change', toggleSections);
 </script>
+
+</body>
+</html>
