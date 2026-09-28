@@ -57,6 +57,7 @@
             padding: 20px;
             box-sizing: border-box;
             flex-shrink: 0;
+            transition: opacity 0.3s ease;
         }
 
         .hero-title {
@@ -73,12 +74,12 @@
             background-color: var(--accent-red);
             color: #fff;
             border: none;
-            padding: 10px 40px;
+            padding: 10px 50px;
             border-radius: 20px;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             cursor: pointer;
             transition: all 0.2s ease;
             text-decoration: none;
@@ -97,7 +98,7 @@
             max-width: 1100px;
             width: 100%;
             padding: 20px 12px 60px 12px;
-            margin-top: 40px; /* Ekstra afstand så den ikke ses i bunden af hero-sektionen */
+            margin-top: 0;
         }
 
         /* Header / Adresse */
@@ -109,17 +110,18 @@
         }
 
         .subtitle {
-            font-size: 1.3rem;
+            font-size: 2rem;
             color: var(--accent-red);
             font-weight: 700;
             margin-bottom: 10px;
+            padding-top: 20px;
             text-transform: uppercase;
         }
 
         .address {
             font-size: 0.85rem;
             color: var(--text-muted);
-            font-weight: 300;
+            
             word-break: break-word;
         }
 
@@ -451,7 +453,7 @@
 <body>
 
     <!-- Hero Sektion -->
-    <section class="hero-section">
+    <section class="hero-section" id="hero-section">
         <h1 class="hero-title">Du er inviteret til GoKart!</h1>
         <a href="#details" class="read-more-btn" id="read-more-btn">Læs mere</a>
     </section>
@@ -462,7 +464,8 @@
         <!-- Header & Adresse -->
         <header>
             <div class="subtitle">Information & Svar</div>
-            <p class="address">Hasselager Centervej 30, Viby J | Bus 1A, Bus 200 og letbanen kører derud</p>
+            <p class="address">Hasselager Centervej 30, 8260 Viby J.</p>
+            <p class="address"><strong>Transport:</strong> Bus 1A, Bus 200 og letbanen kører derud</p>
         </header>
 
         <!-- Inviterede personer -->
@@ -628,14 +631,22 @@
 
     <script>
         const readMoreBtn = document.getElementById('read-more-btn');
+        const heroSection = document.getElementById('hero-section');
         const detailsSection = document.getElementById('details');
 
         readMoreBtn.addEventListener('click', function(e) {
             e.preventDefault();
             // Lås op for scrolling på body
             document.body.classList.add('unlocked');
+            
             // Scroll ned til informationerne
             detailsSection.scrollIntoView({ behavior: 'smooth' });
+
+            // Skjul hero-sektionen efter scroll-animationen
+            setTimeout(() => {
+                heroSection.classList.add('hidden');
+                window.scrollTo(0, 0); // Sørg for at viewport er i toppen af siden efter hero fjernes
+            }, 500);
         });
 
         const radioJa = document.getElementById('deltag-ja');
