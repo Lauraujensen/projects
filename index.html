@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laura's Github</title>
+    
+    <!-- Google Font: Tangerine og Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Tangerine:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- NULSTILLING & BASALE INDSTILLINGER --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1e293b;
+            /* Full cover baggrundsbillede */
+            background-image: url('./billeder/baggrund4.jpg');
+            background-size: cover;           /* Dækker hele skærmfladen permanent */
+            background-position: center;      /* Centrerer billedet */
+            background-repeat: no-repeat;
+            background-attachment: fixed;    /* Fastlåst baggrund ved scroll */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 48px 40px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        @media (min-width: 1024px) {
+            body {
+                padding-left: 120px;
+                padding-right: 120px;
+            }
+        }
+
+        /* --- MAIN CONTAINER --- */
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* --- HEADER --- */
+        .header {
+            text-align: left;
+            margin-bottom: 40px;
+            margin-top: 60px;
+        }
+
+        .title {
+            font-family: 'Tangerine', cursive;
+            font-size: 4.5rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            color: #f3f0ed;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: #f3f0ed;
+            font-weight: 500;
+        }
+
+        @media (min-width: 640px) {
+            .title {
+                font-size: 8.5rem;
+            }
+        }
+
+        /* --- GRID LAYOUT --- */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+            margin-top: 80px;
+        }
+
+        @media (min-width: 640px) {
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .projects-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* --- PROJEKT CARD --- */
+        .project-card {
+            text-decoration: none;
+            color: inherit;
+            background-color: rgba(255, 255, 255, 0.408);
+            backdrop-filter: blur(4px);
+            border-radius: 12px;
+            border: 5px solid #ffffff4a;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+            border-color: #ffffffb1;
+        }
+
+        /* Billede boks */
+        .card-image-container {
+            position: relative;
+            aspect-ratio: 21 / 9;
+            width: 100%;
+            overflow: hidden;
+            background-color: #fff1f2;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover .card-image {
+            transform: scale(1.04);
+        }
+
+        /* Card Indhold */
+        .card-content {
+            padding: 16px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            flex-grow: 1;
+        }
+
+        .category-tag {
+            display: inline-block;
+            padding: 3px 10px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: #3d4825;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 9999px;
+            margin-bottom: 6px;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1f270e;
+            transition: color 0.2s ease;
+        }
+
+        .project-card:hover .card-title {
+            color: #3d4825;
+        }
+
+        /* --- NUDGING PIL I RING --- */
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin-top: 12px;
+        }
+
+        .arrow-circle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 1.5px solid #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        .arrow-icon {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover .arrow-icon {
+            transform: rotate(-45deg);
+            color: #ffffff;
+        }
+
+        .project-card:hover .arrow-circle {
+            background-color: #666f53;
+            border-color: #666f53;
+        }
+
+        /* --- FOOTER --- */
+        .footer {
+            margin-top: 64px;
+            text-align: center;
+            font-size: 0.80rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+    <main class="container">
+        
+        <!-- Header -->
+        <header class="header">
+            <h1 class="title">Laura's Github</h1>
+            <p class="subtitle">An archive of my vibe-coding projects &lt;3</p>
+        </header>
+
+        <!-- Projekt Grid (3 Kolonner) -->
+        <section class="projects-grid">
+
+            <!-- Card 1 -->
+            <a href="https://lauraujensen.github.io/projects/marvel-marathon/index.html" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               class="project-card">
+                
+                <div class="card-image-container">
+                    <img src="./billeder/marvel.png" 
+                         alt="Lauras Marvel Marathon preview" 
+                         class="card-image"
+                         onerror="this.onerror=null; this.src='https://placehold.co/600x400/ffe4e6/9f1239?text=Lauras+Marvel+Marathon';">
+                </div>
+
+                <div class="card-content">
+                    <div>
+                        <span class="category-tag">website</span>
+                        <h2 class="card-title">Lauras Marvel Marathon</h2>
+                    </div>
+
+                    <div class="card-footer">
+                        <div class="arrow-circle">
+                            <svg class="arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Card 2 -->
+            <a href="https://lauraujensen.github.io/projects/dating-ideas/index.html" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               class="project-card">
+                
+                <div class="card-image-container">
+                    <img src="./billeder/dates.png" 
+                         alt="Lauras Date Arkiv preview" 
+                         class="card-image"
+                         onerror="this.onerror=null; this.src='https://placehold.co/600x400/ffe4e6/9f1239?text=Lauras+Date+Arkiv';">
+                </div>
+
+                <div class="card-content">
+                    <div>
+                        <span class="category-tag">website</span>
+                        <h2 class="card-title">Lauras Date Arkiv</h2>
+                    </div>
+
+                    <div class="card-footer">
+                        <div class="arrow-circle">
+                            <svg class="arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Card 3 -->
+            <a href="https://lauraujensen.github.io/projects/zodiac-scheme/index.html" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               class="project-card">
+                
+                <div class="card-image-container">
+                    <img src="./billeder/zodiac.png" 
+                         alt="Stjernetegnsskema preview" 
+                         class="card-image"
+                         onerror="this.onerror=null; this.src='https://placehold.co/600x400/ffe4e6/9f1239?text=Stjernetegnsskema';">
+                </div>
+
+                <div class="card-content">
+                    <div>
+                        <span class="category-tag">website</span>
+                        <h2 class="card-title">Stjernetegnsskema</h2>
+                    </div>
+
+                    <div class="card-footer">
+                        <div class="arrow-circle">
+                            <svg class="arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Card 4 -->
+            <a href="https://lauraujensen.github.io/projects/aktivitetshjul/index.html" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               class="project-card">
+                
+                <div class="card-image-container">
+                    <img src="./billeder/hjul.png" 
+                         alt="Aktivitetshjul preview" 
+                         class="card-image"
+                         onerror="this.onerror=null; this.src='https://placehold.co/600x400/ffe4e6/9f1239?text=Aktivitetshjul';">
+                </div>
+
+                <div class="card-content">
+                    <div>
+                        <span class="category-tag">website</span>
+                        <h2 class="card-title">Aktivitetshjul</h2>
+                    </div>
+
+                    <div class="card-footer">
+                        <div class="arrow-circle">
+                            <svg class="arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Made by Laura Ulbrandt Jensen</p>
+    </footer>
+
+</body>
+</html>
