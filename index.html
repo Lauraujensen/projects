@@ -21,25 +21,28 @@
         body {
             font-family: 'Inter', sans-serif;
             color: #1e293b;
-            /* Full cover baggrundsbillede tilpasset mobil */
-            background-image: url('./billeder/baggrund4.jpg');
-            background-size: cover;
-            background-position: center top;
-            background-repeat: no-repeat;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             padding: 48px 40px;
             -webkit-font-smoothing: antialiased;
+            position: relative;
         }
 
-        /* Fastlåst baggrund aktiveres først fra tablet/skærm-størrelse */
-        @media (min-width: 768px) {
-            body {
-                background-attachment: fixed;
-                background-position: center center;
-            }
+        /* PERFEKT MOBIL-BAGGRUND (Forhindrer over-zoom på alle skærme) */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: url('./billeder/baggrund4.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: -1; /* Lægger baggrunden bag alt indhold */
         }
 
         @media (min-width: 1024px) {
