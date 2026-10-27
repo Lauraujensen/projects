@@ -6,4 +6,4 @@ Projekt 02: <a href="https://Lauraujensen.github.io/projects/dating-ideas/index.
 Projekt 03: <a href="https://Lauraujensen.github.io/projects/zodiac-scheme/index.html" target="_blank">Stjernetegnsskema</a> <br>
 Projekt 04: <a href="https://Lauraujensen.github.io/projects/aktivitetshjul/index.html" target="_blank">Aktivitetshjul</a> <br>
 Projekt 05: <a href="https://Lauraujensen.github.io/projects/gokart-invitation/index.html" target="_blank">Invitation til GoKart</a> <br>
-Projekt 06: <a href="https://Lauraujensen.github.io/projects/love-note/index.html" target="_blank">Love notes</a> <br>
+Projekt 06: <a href="https://Lauraujensen.github.io/projects/love-notes/index.html" target="_blank">Love notes</a> <br>
