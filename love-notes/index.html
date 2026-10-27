@@ -96,7 +96,7 @@
       transition: transform 0.3s ease;
     }
 
-    /* Noten hopper KUN op ved hover på knappen "Læs en grund" */
+    /* Noten hopper KUN op ved hover på knappen (på desktop) */
     body:has(.btn-read:hover) .note-preview {
       transform: translate(-50%, -25px);
     }
@@ -193,7 +193,7 @@
       transform: scale(1);
     }
 
-    /* MOBILVENLIG TILPASNING (Bevarer nøjagtig 1:1 proportioner via transform scale) */
+    /* MOBILVENLIG TILPASNING MED AUTOMATISK HOOP-ANIMATION */
     @media (max-width: 620px) {
       body {
         justify-content: center;
@@ -212,7 +212,6 @@
         font-size: 2.1rem;
       }
 
-      /* Ren skalering af hele konvolut-elementet */
       .envelope-container {
         transform: scale(0.62);
         margin-top: -50px;
@@ -229,6 +228,24 @@
         height: 310px;
         font-size: 1.05rem;
         padding: 25px;
+      }
+
+      /* Sætter automatisk bouncende animation på noten, KUN på mobil */
+      .note-preview {
+        animation: mobileBounce 3s ease-in-out infinite;
+      }
+    }
+
+    /* Definition af selve animationen (hopper op og ned med pauser ind imellem) */
+    @keyframes mobileBounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateX(-50%) translateY(0);
+      }
+      35% {
+        transform: translateX(-50%) translateY(-22px);
+      }
+      65% {
+        transform: translateX(-50%) translateY(-12px);
       }
     }
   </style>
