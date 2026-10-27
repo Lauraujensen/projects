@@ -193,7 +193,7 @@
       transform: scale(1);
     }
 
-    /* MOBILVENLIG TILPASNING MED AUTOMATISK HOOP-ANIMATION */
+    /* MOBILVENLIG TILPASNING MED TYDELIG AUTOMATISK HOPPE-ANIMATION */
     @media (max-width: 620px) {
       body {
         justify-content: center;
@@ -230,22 +230,28 @@
         padding: 25px;
       }
 
-      /* Sætter automatisk bouncende animation på noten, KUN på mobil */
+      /* Aktiverer den automatiske hoppe-effekt på mobilen */
       .note-preview {
-        animation: mobileBounce 3s ease-in-out infinite;
+        animation: autoBounceMobile 2.5s ease-in-out infinite;
       }
     }
 
-    /* Definition af selve animationen (hopper op og ned med pauser ind imellem) */
-    @keyframes mobileBounce {
-      0%, 20%, 50%, 80%, 100% {
-        transform: translateX(-50%) translateY(0);
+    /* Animation der gør, at noten hopper tydeligt op og ned af sig selv */
+    @keyframes autoBounceMobile {
+      0%, 100% {
+        transform: translateX(-50%) translateY(0px);
       }
-      35% {
-        transform: translateX(-50%) translateY(-22px);
+      40% {
+        transform: translateX(-50%) translateY(0px);
       }
-      65% {
-        transform: translateX(-50%) translateY(-12px);
+      55% {
+        transform: translateX(-50%) translateY(-35px);
+      }
+      70% {
+        transform: translateX(-50%) translateY(-10px);
+      }
+      85% {
+        transform: translateX(-50%) translateY(-25px);
       }
     }
   </style>
