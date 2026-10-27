@@ -52,13 +52,14 @@
       letter-spacing: 1px;
     }
 
-    /* Konvolut beholder - skaleret op */
+    /* Konvolut beholder */
     .envelope-container {
       position: relative;
       width: 580px;
       height: 395px;
       margin-bottom: 40px;
       z-index: 5;
+      transform-origin: center center;
     }
 
     /* SVG-elementer */
@@ -192,27 +193,30 @@
       transform: scale(1);
     }
 
-    /* MOBILVENLIG TILPASNING (aktiveres kun på skærme under 620px bredde) */
+    /* MOBILVENLIG TILPASNING (Bevarer nøjagtig 1:1 proportioner via transform scale) */
     @media (max-width: 620px) {
       body {
-        justify-content: space-evenly;
-        padding: 20px 10px;
+        justify-content: center;
+        padding: 10px 0;
+      }
+
+      .header {
+        margin-bottom: 0px;
       }
 
       .header .subtitle {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
       }
 
       .header .title {
-        font-size: 1.9rem;
+        font-size: 2.1rem;
       }
 
-      /* Skalerer hele konvolutten ned så den passer til mobilen */
+      /* Ren skalering af hele konvolut-elementet */
       .envelope-container {
-        width: 340px;
-        height: 232px;
-        margin-bottom: 20px;
-        transform: scale(0.95);
+        transform: scale(0.62);
+        margin-top: -50px;
+        margin-bottom: -50px;
       }
 
       .btn-read {
@@ -221,9 +225,9 @@
       }
 
       .note-card {
-        width: 300px;
-        height: 300px;
-        font-size: 1rem;
+        width: 310px;
+        height: 310px;
+        font-size: 1.05rem;
         padding: 25px;
       }
     }
