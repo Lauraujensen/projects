@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grunde til at jeg elsker dig <3</title>
+  <style>
+    /* Nulstilling og grundlæggende layout */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Courier New', Courier, monospace;
+      color: #ffffff;
+      /* Mørkerød/rosabronze baggrund med større gentaget hjerte-mønster */
+      background-color: #934c52;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 24 24'%3E%3Cpath fill='%23a6585f' d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 70px 70px;
+      background-position: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Overskrift */
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+      z-index: 10;
+    }
+
+    .header .subtitle {
+      font-size: 1.8rem;
+      font-weight: normal;
+      letter-spacing: 2px;
+      margin-bottom: 6px;
+      opacity: 0.95;
+    }
+
+    .header .title {
+      font-size: 2.8rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    /* Konvolut beholder - skaleret op */
+    .envelope-container {
+      position: relative;
+      width: 580px;
+      height: 395px;
+      margin-bottom: 40px;
+      z-index: 5;
+    }
+
+    /* SVG-elementer */
+    .envelope-svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .envelope-back {
+      z-index: 1;
+    }
+
+    .envelope-front {
+      z-index: 3;
+      filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.15));
+    }
+
+    /* Kortet/noten inde i konvolutten */
+    .note-preview {
+      position: absolute;
+      top: 90px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 300px;
+      height: 195px;
+      background-color: #f6e6e4;
+      border-radius: 5px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+      z-index: 2; /* Ligger mellem bag- og forside af konvolutten */
+      transition: transform 0.3s ease;
+    }
+
+    /* Noten hopper KUN op ved hover på knappen "Læs en grund" */
+    body:has(.btn-read:hover) .note-preview {
+      transform: translate(-50%, -25px);
+    }
+
+    /* Vokssegl fra billedmappen */
+    .wax-seal {
+      position: absolute;
+      top: 236px;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 75px;
+      height: 75px;
+      background-image: url('billeder/segl.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.35));
+      z-index: 4; /* Ligger forrest på konvolutten */
+      cursor: pointer;
+    }
+
+    /* Knap: Læs en grund */
+    .btn-read {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      color: #ffffff;
+      padding: 14px 38px;
+      font-size: 1.25rem;
+      font-family: 'Courier New', Courier, monospace;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+      transition: all 0.2s ease;
+      z-index: 10;
+    }
+
+    .btn-read:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: translateY(-2px);
+    }
+
+    .btn-read:active {
+      transform: translateY(0);
+    }
+
+    /* Overlay skærm når noten åbnes */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(48, 32, 35, 0.82);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 100;
+    }
+
+    .overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Åbnet note/kort */
+    .note-card {
+      background-color: #f6e8e6;
+      color: #83474c;
+      width: 380px;
+      height: 380px;
+      padding: 40px;
+      border-radius: 4px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 1.2rem;
+      line-height: 1.6;
+      transform: scale(0.9);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    .overlay.active .note-card {
+      transform: scale(1);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Overskrift -->
+  <div class="header">
+    <div class="subtitle">Grunde til at</div>
+    <div class="title">jeg elsker dig &lt;3</div>
+  </div>
+
+  <!-- Konvolut -->
+  <div class="envelope-container">
+    <!-- 1. Bagerste lag: Inderside og åben klap -->
+    <svg class="envelope-svg envelope-back" viewBox="0 0 440 300">
+      <path d="M 40 90 L 220 0 L 400 90 L 400 270 L 40 270 Z" fill="#ffffff" />
+      <path d="M 40 90 L 220 0 L 400 90" fill="#fcfcfc" stroke="#e0e0e0" stroke-width="1.5"/>
+    </svg>
+
+    <!-- 2. Midterste lag: Den lyserøde note (stikker op inde fra konvolutten) -->
+    <div class="note-preview"></div>
+
+    <!-- 3. Forreste lag: Sideklapper OG bundklap, der dækker bunden af noten -->
+    <svg class="envelope-svg envelope-front" viewBox="0 0 440 300">
+      <!-- Venstre sideklap -->
+      <path d="M 40 90 L 220 180 L 40 270 Z" fill="#f7f7f7" stroke="#e3e3e3" stroke-width="1"/>
+      
+      <!-- Højre sideklap -->
+      <path d="M 400 90 L 220 180 L 400 270 Z" fill="#f2f2f2" stroke="#dedede" stroke-width="1"/>
+      
+      <!-- Bundklap -->
+      <path d="M 40 270 L 220 150 L 400 270 Z" fill="#fafafa" stroke="#eaeaea" stroke-width="1"/>
+    </svg>
+
+    <!-- 4. Vokssegl foran klapperne -->
+    <div class="wax-seal" id="seal"></div>
+  </div>
+
+  <!-- Knap -->
+  <button class="btn-read" id="readBtn">Læs en grund</button>
+
+  <!-- Overlay -->
+  <div class="overlay" id="overlay">
+    <div class="note-card" id="noteText">
+      <!-- Teksten sættes dynamisk via JavaScript -->
+    </div>
+  </div>
+
+  <script>
+    // Liste med grunde til at du elsker ham
+    const reasons = [
+      "Jeg elsker, at du altid plukker blomster til mig, som du har fundet på din vej over til mig",
+      "Jeg elsker, når du skriver medieval breve til mig, hvor du kalder mig prinsesse shawtybasse/sukkermås af Rosenhøjene",
+    ];
+
+    let currentIndex = 0;
+
+    const readBtn = document.getElementById('readBtn');
+    const seal = document.getElementById('seal');
+    const overlay = document.getElementById('overlay');
+    const noteText = document.getElementById('noteText');
+
+    function openReason() {
+      noteText.textContent = reasons[currentIndex];
+      overlay.classList.add('active');
+      currentIndex = (currentIndex + 1) % reasons.length;
+    }
+
+    readBtn.addEventListener('click', openReason);
+    seal.addEventListener('click', openReason);
+
+    // Luk overlayet når man klikker på det
+    overlay.addEventListener('click', () => {
+      overlay.classList.remove('active');
+    });
+  </script>
+
+</body>
+</html>
